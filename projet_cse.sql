@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 21 mars 2023 à 12:04
+-- Généré le : mar. 21 mars 2023 à 14:49
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -49,6 +49,15 @@ CREATE TABLE `image` (
   `Id_Image` int(11) NOT NULL,
   `Nom_Image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `image`
+--
+
+INSERT INTO `image` (`Id_Image`, `Nom_Image`) VALUES
+(1, 'logo_chanel'),
+(2, 'logo_peugeot'),
+(3, 'logo_pathé_Gaumont');
 
 -- --------------------------------------------------------
 
@@ -100,7 +109,9 @@ INSERT INTO `message` (`Id_Message`, `Nom_Message`, `Prenom_Message`, `Email_Mes
 (5, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 2 grand sapin et 2 petit', NULL, NULL),
 (6, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
 (7, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
-(8, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite ', NULL, NULL);
+(8, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite ', NULL, NULL),
+(9, 'Brunet', 'Alexandre', 'alexandre.brunet@gmail.com', 'Bonjour, j\'ai constaté la réduction sur la révision pour ma voiture ', NULL, NULL),
+(10, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, j\'ai constaté la réduction sur la révision pour mon véhicule ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -117,6 +128,22 @@ CREATE TABLE `offre` (
   `Nombre_Place_Min_Offre` int(11) NOT NULL,
   `Id_Partenaire` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `offre`
+--
+
+INSERT INTO `offre` (`Id_Offre`, `Nom_Offre`, `Description_Offre`, `Date_Debut_Offre`, `Date_Fin_Offre`, `Nombre_Place_Min_Offre`, `Id_Partenaire`) VALUES
+(1, 'Sapin de noël', 'grand Sapin de noël -25% ', '2023-03-15', '2024-03-03', 20, 3),
+(2, 'Chocolat', 'Offre promotionnel sur le chocolat -5%', '2022-11-17', '2023-01-18', 150, 8),
+(3, 'Révision véhicule', 'promotion sur la révision de véhicule -15%', '2023-03-05', '2023-03-22', 1, 7),
+(4, 'Révision véhicule Peugeot', 'promotion sur la révision de véhicule -15%', '2023-02-06', '2023-05-10', 2, 3),
+(5, 'Révision véhicule Renault', 'promotion sur la révision de véhicule -40%', '2023-02-06', '2023-05-10', 1, 7),
+(6, 'Révision véhicule par Renault', 'promotion sur la révision de véhicule -25%', '2023-03-05', '2023-03-22', 1, 7),
+(7, 'Vente place cinéma Pathé Gaumont', 'promotion sur la vente de place de cinéma de 10%', '2023-03-09', '2023-03-01', 20, 2),
+(8, 'Vente place cinéma Pathé Gaumont', 'promotion sur la vente de place de cinéma de 20%', '2023-03-09', '2023-03-01', 20, 2),
+(9, 'Vente de parfum', 'promotion sur la vente de parfum de chanel', '2023-02-07', '2023-06-21', 7, 1),
+(10, 'promotion produit', '-20% sur toute la boutique chanel', '2023-02-07', '2023-06-21', 7, 1);
 
 -- --------------------------------------------------------
 
@@ -143,6 +170,19 @@ CREATE TABLE `partenaire` (
   `Id_Image` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `partenaire`
+--
+
+INSERT INTO `partenaire` (`Id_Partenaire`, `Nom_Partenaire`, `Description_Partenaire`, `Lien_Partenaire`, `Id_Image`) VALUES
+(1, 'Chanel', 'Découvrez les remise sur les parfums de la marque chanel', 'https://www.chanel.com/fr/parfums/', 1),
+(2, 'Pathe Gaumont', 'Offre exeptionnelles sur vos place de cinénma', 'https://www.pathe.fr/', 3),
+(3, 'Peugeot', 'offre exeptionnelles de votre révision de véhicule', 'https://www.peugeot.fr/', 2),
+(5, 'parc asterix', 'offre exptionnelles sur vos place du parc asterix', 'https://www.parcasterix.fr/', 3),
+(7, 'renault', 'Offre expeptionnelles', 'https://www.renault.fr/', 1),
+(8, 'Asus rog', 'offre exceptionnelles sur les produit de asus rog ', 'https://www.asus.com/', 2),
+(9, 'MSI', 'offre exeptionnelles sur les produit de la marque MSI', 'https://fr-store.msi.com/', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -163,7 +203,8 @@ CREATE TABLE `utilisateur` (
 --
 
 INSERT INTO `utilisateur` (`Id_Utilisateur`, `Nom_Utilisateur`, `Prenom_Utilisateur`, `Email_Utilisateur`, `Password_Utilisateur`, `Id_Droit`) VALUES
-(1, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1);
+(1, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1),
+(2, 'Noël', 'Marie', 'marie.noël@lyceestvincent.com', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1);
 
 --
 -- Index pour les tables déchargées
@@ -238,7 +279,7 @@ ALTER TABLE `droit`
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `Id_Image` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `info_accueil`
@@ -250,25 +291,25 @@ ALTER TABLE `info_accueil`
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `offre`
 --
 ALTER TABLE `offre`
-  MODIFY `Id_Offre` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Offre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
-  MODIFY `Id_Partenaire` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Partenaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Contraintes pour les tables déchargées
