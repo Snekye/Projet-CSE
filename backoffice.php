@@ -27,6 +27,10 @@ $query = $connexion->prepare("SELECT * FROM offre");
 $query->execute();
 $liste_offres = $query->fetchAll();
 
+$query = $connexion->prepare("SELECT * FROM message");
+$query->execute();
+$liste_messages = $query->fetchAll();
+
 ?>
 
 <h1>Présentation</h1>
@@ -133,6 +137,46 @@ $liste_offres = $query->fetchAll();
 
     </tbody>
 
+</table>
+
+<h1>Messagerie</h1>
+
+<table>
+
+    <thead>
+        <tr>
+            <th style='width: 10%;'>Nom</th>
+            <th style='width: 10%;'>Prénom</th>
+            <th style='width: 20%;'>Email</th>
+            <th style='width: 30%;'>Message</th>
+            <th style='width: 5%;'>Offre</th>
+            <th style='width: 5%;'>Partenaire</th>
+            <th style='width: 10%;'>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <?php 
+        
+        foreach ($liste_messages as $element) { ?>
+
+        <tr>
+            <td style='width: 10%;'><?=$element['Nom_Message']?></td>
+            <td style='width: 10%;'><?=$element['Prenom_Message']?></td>
+            <td style='width: 20%;'><?=$element['Email_Message']?></td>
+            <td style='width: 30%;'><?=$element['Contenu_Message']?></td>
+            <td style='width: 5%;'><?=$element['Id_Offre']?></td>
+            <td style='width: 5%;'><?=$element['Id_Partenaire']?></td>
+            <td style='width: 10%; display: flex; flex-wrap: wrap;'>
+                <button>Supprimer</button>
+            </td>
+        </tr>
+        
+        <?php } ?>
+
+    </tbody>
+
     <style>
         td, th {
             border: 3px solid #DDDDDD;
@@ -144,5 +188,3 @@ $liste_offres = $query->fetchAll();
             padding: 0% 5%; font-size: 20px; text-align: center;
         }
     </style>
-
-</table>
