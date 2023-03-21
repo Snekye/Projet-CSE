@@ -15,13 +15,17 @@ if (!empty($_SESSION)) {
 require("require_deconnexion.php");
 
 // récup BDD
-$query = $connexion->prepare("SELECT * FROM info");
+$query = $connexion->prepare("SELECT * FROM info_accueil");
 $query->execute();
 $liste_info = $query->fetchAll()[0];
 
 $query = $connexion->prepare("SELECT * FROM partenaire");
 $query->execute();
 $liste_partenaires = $query->fetchAll();
+
+$query = $connexion->prepare("SELECT * FROM offre");
+$query->execute();
+$liste_offres = $query->fetchAll();
 
 ?>
 
@@ -31,19 +35,23 @@ $liste_partenaires = $query->fetchAll();
 
     <thead>
         <tr>
-            <th style='width: 15%;'>Tel</th>
-            <th style='width: 40%;'>Description</th>
-            <th style='width: 20%;'>Email</th>
-            <th style='width: 15%;'>Action</th>
+            <th style='width: 10%;'>Tel</th>
+            <th style='width: 10%;'>Email</th>
+            <th style='width: 20%;'>Emplacement</th>
+            <th style='width: 10%;'>Titre</th>
+            <th style='width: 30%;'>Texte</th>
+            <th style='width: 10%;'>Action</th>
         </tr>
     </thead>
 
     <tbody>
         <tr>
-            <td style='width: 15%;'><?=$liste_info['info_tel']?></th>
-            <td style='width: 40%;'><?=$liste_info['info_msg']?></td>
-            <td style='width: 20%;'><?=$liste_info['info_email']?></td>
-            <td style='width: 15%'>
+            <td style='width: 10%;'><?=$liste_info['Num_Tel_Info_Accueil']?></td>
+            <td style='width: 10%;'><?=$liste_info['Email_Info_Accueil']?></td>
+            <td style='width: 20%;'><?=$liste_info['Emplacement_Bureau_Info_Accueil']?></td>
+            <td style='width: 10%;'><?=$liste_info['Titre_Info_Accueil']?></td>
+            <td style='width: 30%;'><?=$liste_info['Texte_Info_Accueil']?></td>
+            <td style='width: 10%'>
                 <button>Modifier</button>
             </td>
         </tr>
@@ -51,27 +59,71 @@ $liste_partenaires = $query->fetchAll();
 
 </table>
 
-<h1>Partenaire</h1>
+<h1>Partenaires</h1>
 <table>
 
     <thead>
         <tr>
-            <th style='width: 15%;'>Nom</th>
-            <th style='width: 35%;'>Description</th>
-            <th style='width: 15%;'>Lien</th>
-            <th style='width: 25%;'>Action</th>
+            <th style='width: 10%;'>Nom</th>
+            <th style='width: 30%;'>Description</th>
+            <th style='width: 10%;'>Lien</th>
+            <th style='width: 30%;'>Image</th>
+            <th style='width: 10%;'>Action</th>
         </tr>
     </thead>
 
     <tbody>
 
-        <?php foreach ($liste_partenaires as $element) { ?>
+        <?php 
+        
+        foreach ($liste_partenaires as $element) { ?>
 
         <tr>
-            <td style='width: 15%;'><?=$element['partenaire_nom']?></td>
-            <td style='width: 35%;'><?=$element['partenaire_description']?></td>
-            <td style='width: 15%;'><a href="<?=$element['partenaire_lien']?>", target="_blank"><?=$element['partenaire_lien']?></a></td>
+            <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
+            <td style='width: 30%;'><?=$element['Description_Partenaire']?></td>
+            <td style='width: 10%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
+            <td style='width: 30%;'><?=$element['Id_Image']?></td>
             <td style='width: 25%;'>
+                <button>Modifier</button>
+                <button>Supprimer</button>
+            </td>
+        </tr>
+        
+        <?php } ?>
+
+    </tbody>
+</table>
+
+<h1>Offres</h1>
+
+<table>
+
+    <thead>
+        <tr>
+            <th style='width: 10%;'>Partenaire</th>
+            <th style='width: 10%;'>Nom</th>
+            <th style='width: 30%;'>Description</th>
+            <th style='width: 10%;'>Date de début</th>
+            <th style='width: 10%;'>Date de fin</th>
+            <th style='width: 10%;'>Places minimum</th>
+            <th style='width: 10%;'>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        <?php 
+        
+        foreach ($liste_offres as $element) { ?>
+
+        <tr>
+            <td style='width: 10%;'></td>
+            <td style='width: 10%;'><?=$element['Nom_Offre']?></td>
+            <td style='width: 30%;'><?=$element['Description_Offre']?></td>
+            <td style='width: 10%;'><?=$element['Date_Debut_Offre']?></td>
+            <td style='width: 10%;'><?=$element['Date_Fin_Offre']?></td>
+            <td style='width: 10%;'><?=$element['Nombre_Place_Min_Offre']?></td>
+            <td style='width: 10%; display: flex; flex-wrap: wrap;'>
                 <button>Modifier</button>
                 <button>Supprimer</button>
             </td>
@@ -86,7 +138,7 @@ $liste_partenaires = $query->fetchAll();
             border: 3px solid #DDDDDD;
         }
         button {
-            font-size: 24px;
+            font-size: 16px;
         }
         table {
             padding: 0% 5%; font-size: 20px; text-align: center;
