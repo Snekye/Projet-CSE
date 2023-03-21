@@ -9,6 +9,6 @@ require ('require_connexion_bdd.php');
 if (!empty($_POST["deconnexion"])) {
     session_destroy();
     echo ("Vous vous êtes déconnecté.");
-    header("refresh:2;url=./index.php");
+    header("refresh:2;url=./connexion.php");
 }
 ?>
