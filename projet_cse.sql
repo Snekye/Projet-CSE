@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 21 mars 2023 à 10:30
+-- Généré le : mar. 21 mars 2023 à 11:49
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `cse_lsv`
+-- Base de données : `projet_cse`
 --
 
 -- --------------------------------------------------------
@@ -53,7 +53,7 @@ CREATE TABLE `info_accueil` (
   `Id_Info_Accueil` int(11) NOT NULL,
   `Num_Tel_Info_Accueil` int(11) NOT NULL,
   `Email_Info_Accueil` varchar(255) NOT NULL,
-  `Emplacement_Bureau_Info_Accueil,` varchar(255) NOT NULL,
+  `Emplacement_Bureau_Info_Accueil` varchar(255) NOT NULL,
   `Titre_Info_Accueil` varchar(255) NOT NULL,
   `Texte_Info_Accueil` varchar(3000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -73,6 +73,19 @@ CREATE TABLE `message` (
   `Id_Offre` int(11) DEFAULT NULL,
   `Id_Partenaire` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `message`
+--
+
+INSERT INTO `message` (`Id_Message`, `Nom_Message`, `Prenom_Message`, `Email_Message`, `Contenu_Message`, `Id_Offre`, `Id_Partenaire`) VALUES
+(1, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite me procurer du chocolat afin de réaliser une collecte et l\'offrir pour les fêtes de pâques  ', NULL, NULL),
+(2, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite me procurer du chocolat afin de réaliser une collecte et l\'offrir pour les fêtes de pâques  ', NULL, NULL),
+(3, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite me procurer la sélection de parfum de l\'enseigne nocibé en profitant de la remise de 20% ', NULL, NULL),
+(4, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 3 grand sapin et 1 petit', NULL, NULL),
+(5, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 2 grand sapin et 2 petit', NULL, NULL),
+(6, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
+(7, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -215,7 +228,7 @@ ALTER TABLE `info_accueil`
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `offre`
