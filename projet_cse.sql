@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 21 mars 2023 à 11:49
+-- Généré le : mar. 21 mars 2023 à 12:04
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -32,6 +32,13 @@ CREATE TABLE `droit` (
   `Libelle_Droit` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Déchargement des données de la table `droit`
+--
+
+INSERT INTO `droit` (`Id_Droit`, `Libelle_Droit`) VALUES
+(1, 'Administrateur');
+
 -- --------------------------------------------------------
 
 --
@@ -57,6 +64,13 @@ CREATE TABLE `info_accueil` (
   `Titre_Info_Accueil` varchar(255) NOT NULL,
   `Texte_Info_Accueil` varchar(3000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `info_accueil`
+--
+
+INSERT INTO `info_accueil` (`Id_Info_Accueil`, `Num_Tel_Info_Accueil`, `Email_Info_Accueil`, `Emplacement_Bureau_Info_Accueil`, `Titre_Info_Accueil`, `Texte_Info_Accueil`) VALUES
+(1, 102030405, 'emailtest@gmail.com', 'emplacementtest', 'titretest', 'textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest ');
 
 -- --------------------------------------------------------
 
@@ -85,7 +99,8 @@ INSERT INTO `message` (`Id_Message`, `Nom_Message`, `Prenom_Message`, `Email_Mes
 (4, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 3 grand sapin et 1 petit', NULL, NULL),
 (5, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 2 grand sapin et 2 petit', NULL, NULL),
 (6, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
-(7, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL);
+(7, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
+(8, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite ', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,6 +157,13 @@ CREATE TABLE `utilisateur` (
   `Password_Utilisateur` varchar(255) NOT NULL,
   `Id_Droit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `utilisateur`
+--
+
+INSERT INTO `utilisateur` (`Id_Utilisateur`, `Nom_Utilisateur`, `Prenom_Utilisateur`, `Email_Utilisateur`, `Password_Utilisateur`, `Id_Droit`) VALUES
+(1, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1);
 
 --
 -- Index pour les tables déchargées
@@ -210,7 +232,7 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `droit`
 --
 ALTER TABLE `droit`
-  MODIFY `Id_Droit` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Droit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `image`
@@ -222,13 +244,13 @@ ALTER TABLE `image`
 -- AUTO_INCREMENT pour la table `info_accueil`
 --
 ALTER TABLE `info_accueil`
-  MODIFY `Id_Info_Accueil` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Info_Accueil` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `offre`
@@ -246,7 +268,7 @@ ALTER TABLE `partenaire`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
