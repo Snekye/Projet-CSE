@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 21 mars 2023 à 10:39
+-- Généré le : mar. 21 mars 2023 à 10:30
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -18,32 +18,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données : `projet_cse`
+-- Base de données : `cse_lsv`
 --
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `autorisation`
+-- Structure de la table `droit`
 --
 
-CREATE TABLE `autorisation` (
-  `autorisation_id` int(250) NOT NULL,
-  `autorisation_libelle` varchar(250) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `contact`
---
-
-CREATE TABLE `contact` (
-  `contact_id` int(250) NOT NULL,
-  `contact_nom` varchar(250) NOT NULL,
-  `contact_prénom` varchar(250) NOT NULL,
-  `contact_email` varchar(250) NOT NULL,
-  `contact_message` varchar(1000) NOT NULL
+CREATE TABLE `droit` (
+  `Id_Droit` int(11) NOT NULL,
+  `Libelle_Droit` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -53,29 +39,40 @@ CREATE TABLE `contact` (
 --
 
 CREATE TABLE `image` (
-  `image_id` int(250) NOT NULL,
-  `image_lien` varchar(500) NOT NULL
+  `Id_Image` int(11) NOT NULL,
+  `Nom_Image` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `info`
+-- Structure de la table `info_accueil`
 --
 
-CREATE TABLE `info` (
-  `info_id` int(250) NOT NULL,
-  `info_tel` varchar(14) NOT NULL,
-  `info_email` varchar(250) NOT NULL,
-  `info_msg` varchar(500) NOT NULL
+CREATE TABLE `info_accueil` (
+  `Id_Info_Accueil` int(11) NOT NULL,
+  `Num_Tel_Info_Accueil` int(11) NOT NULL,
+  `Email_Info_Accueil` varchar(255) NOT NULL,
+  `Emplacement_Bureau_Info_Accueil,` varchar(255) NOT NULL,
+  `Titre_Info_Accueil` varchar(255) NOT NULL,
+  `Texte_Info_Accueil` varchar(3000) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Déchargement des données de la table `info`
+-- Structure de la table `message`
 --
 
-INSERT INTO `info` (`info_id`, `info_tel`, `info_email`, `info_msg`) VALUES
-(1, '01 02 03 04 05', 'testemail@gmail.com', 'test test test test test test test test test test test test test test test test test test test test test test test test ');
+CREATE TABLE `message` (
+  `Id_Message` int(11) NOT NULL,
+  `Nom_Message` varchar(100) NOT NULL,
+  `Prenom_Message` varchar(100) NOT NULL,
+  `Email_Message` varchar(255) NOT NULL,
+  `Contenu_Message` varchar(3000) NOT NULL,
+  `Id_Offre` int(11) DEFAULT NULL,
+  `Id_Partenaire` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -84,12 +81,24 @@ INSERT INTO `info` (`info_id`, `info_tel`, `info_email`, `info_msg`) VALUES
 --
 
 CREATE TABLE `offre` (
-  `offre_id` int(250) NOT NULL,
-  `offre_nom` varchar(250) NOT NULL,
-  `offre_sujet` varchar(1000) NOT NULL,
-  `offre_date_début` datetime NOT NULL,
-  `offre_date_fin` datetime NOT NULL,
-  `offre_nb_place` int(100) NOT NULL
+  `Id_Offre` int(11) NOT NULL,
+  `Nom_Offre` varchar(255) NOT NULL,
+  `Description_Offre` varchar(3000) NOT NULL,
+  `Date_Debut_Offre` date NOT NULL,
+  `Date_Fin_Offre` date NOT NULL,
+  `Nombre_Place_Min_Offre` int(11) NOT NULL,
+  `Id_Partenaire` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `offre_image`
+--
+
+CREATE TABLE `offre_image` (
+  `Id_Offre` int(11) NOT NULL,
+  `Id_Image` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -99,19 +108,12 @@ CREATE TABLE `offre` (
 --
 
 CREATE TABLE `partenaire` (
-  `partenaire_id` int(11) NOT NULL,
-  `partenaire_nom` varchar(50) NOT NULL,
-  `partenaire_description` varchar(1000) NOT NULL,
-  `partenaire_lien` varchar(500) NOT NULL
+  `Id_Partenaire` int(11) NOT NULL,
+  `Nom_Partenaire` varchar(255) NOT NULL,
+  `Description_Partenaire` varchar(3000) NOT NULL,
+  `Lien_Partenaire` varchar(500) NOT NULL,
+  `Id_Image` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `partenaire`
---
-
-INSERT INTO `partenaire` (`partenaire_id`, `partenaire_nom`, `partenaire_description`, `partenaire_lien`) VALUES
-(1, 'Bijour', 'test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ', 'https://wikipedia.fr'),
-(2, 'Bijour', 'test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test test ', 'https://wikipedia.fr');
 
 -- --------------------------------------------------------
 
@@ -120,111 +122,154 @@ INSERT INTO `partenaire` (`partenaire_id`, `partenaire_nom`, `partenaire_descrip
 --
 
 CREATE TABLE `utilisateur` (
-  `utilisateur_id` int(11) NOT NULL,
-  `utilisateur_login` varchar(250) NOT NULL,
-  `utilisateur_mdp` varchar(250) NOT NULL,
-  `utilisateur_nom` varchar(100) NOT NULL,
-  `utilisateur_prénom` varchar(100) NOT NULL
+  `Id_Utilisateur` int(11) NOT NULL,
+  `Nom_Utilisateur` varchar(100) NOT NULL,
+  `Prenom_Utilisateur` varchar(100) NOT NULL,
+  `Email_Utilisateur` varchar(255) NOT NULL,
+  `Password_Utilisateur` varchar(255) NOT NULL,
+  `Id_Droit` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Déchargement des données de la table `utilisateur`
---
-
-INSERT INTO `utilisateur` (`utilisateur_id`, `utilisateur_login`, `utilisateur_mdp`, `utilisateur_nom`, `utilisateur_prénom`) VALUES
-(1, 'admin', '$argon2i$v=19$m=16,t=2,p=1$dG1zdU1DSzN6TklMeXZKeA$v2lN2uEVdGm8xNgSySIguA', 'Admin', 'Test');
 
 --
 -- Index pour les tables déchargées
 --
 
 --
--- Index pour la table `autorisation`
+-- Index pour la table `droit`
 --
-ALTER TABLE `autorisation`
-  ADD PRIMARY KEY (`autorisation_id`);
-
---
--- Index pour la table `contact`
---
-ALTER TABLE `contact`
-  ADD PRIMARY KEY (`contact_id`);
+ALTER TABLE `droit`
+  ADD PRIMARY KEY (`Id_Droit`);
 
 --
 -- Index pour la table `image`
 --
 ALTER TABLE `image`
-  ADD PRIMARY KEY (`image_id`);
+  ADD PRIMARY KEY (`Id_Image`);
 
 --
--- Index pour la table `info`
+-- Index pour la table `info_accueil`
 --
-ALTER TABLE `info`
-  ADD PRIMARY KEY (`info_id`);
+ALTER TABLE `info_accueil`
+  ADD PRIMARY KEY (`Id_Info_Accueil`);
+
+--
+-- Index pour la table `message`
+--
+ALTER TABLE `message`
+  ADD PRIMARY KEY (`Id_Message`),
+  ADD KEY `fk_Id_Offre` (`Id_Offre`),
+  ADD KEY `fk_Id_Partenaire2` (`Id_Partenaire`);
 
 --
 -- Index pour la table `offre`
 --
 ALTER TABLE `offre`
-  ADD PRIMARY KEY (`offre_id`);
+  ADD PRIMARY KEY (`Id_Offre`),
+  ADD KEY `fk_Id_Partenaire` (`Id_Partenaire`);
+
+--
+-- Index pour la table `offre_image`
+--
+ALTER TABLE `offre_image`
+  ADD PRIMARY KEY (`Id_Offre`,`Id_Image`),
+  ADD KEY `fk_Id_image2` (`Id_Image`),
+  ADD KEY `Id_Offre` (`Id_Offre`);
 
 --
 -- Index pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
-  ADD PRIMARY KEY (`partenaire_id`);
+  ADD PRIMARY KEY (`Id_Partenaire`),
+  ADD KEY `fk_Id_Image` (`Id_Image`);
 
 --
 -- Index pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  ADD PRIMARY KEY (`utilisateur_id`);
+  ADD PRIMARY KEY (`Id_Utilisateur`),
+  ADD KEY `fk_Id_Droit` (`Id_Droit`);
 
 --
 -- AUTO_INCREMENT pour les tables déchargées
 --
 
 --
--- AUTO_INCREMENT pour la table `autorisation`
+-- AUTO_INCREMENT pour la table `droit`
 --
-ALTER TABLE `autorisation`
-  MODIFY `autorisation_id` int(250) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT pour la table `contact`
---
-ALTER TABLE `contact`
-  MODIFY `contact_id` int(250) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `droit`
+  MODIFY `Id_Droit` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `image_id` int(250) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Image` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT pour la table `info`
+-- AUTO_INCREMENT pour la table `info_accueil`
 --
-ALTER TABLE `info`
-  MODIFY `info_id` int(250) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+ALTER TABLE `info_accueil`
+  MODIFY `Id_Info_Accueil` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `message`
+--
+ALTER TABLE `message`
+  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `offre`
 --
 ALTER TABLE `offre`
-  MODIFY `offre_id` int(250) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id_Offre` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
-  MODIFY `partenaire_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Partenaire` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `utilisateur_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `message`
+--
+ALTER TABLE `message`
+  ADD CONSTRAINT `fk_Id_Offre` FOREIGN KEY (`Id_Offre`) REFERENCES `offre` (`Id_Offre`),
+  ADD CONSTRAINT `fk_Id_Partenaire2` FOREIGN KEY (`Id_Partenaire`) REFERENCES `partenaire` (`Id_Partenaire`);
+
+--
+-- Contraintes pour la table `offre`
+--
+ALTER TABLE `offre`
+  ADD CONSTRAINT `fk_Id_Partenaire` FOREIGN KEY (`Id_Partenaire`) REFERENCES `partenaire` (`Id_Partenaire`);
+
+--
+-- Contraintes pour la table `offre_image`
+--
+ALTER TABLE `offre_image`
+  ADD CONSTRAINT `fk_Id_Offre2` FOREIGN KEY (`Id_Offre`) REFERENCES `offre` (`Id_Offre`),
+  ADD CONSTRAINT `fk_Id_image2` FOREIGN KEY (`Id_Image`) REFERENCES `image` (`Id_Image`);
+
+--
+-- Contraintes pour la table `partenaire`
+--
+ALTER TABLE `partenaire`
+  ADD CONSTRAINT `fk_Id_Image` FOREIGN KEY (`Id_Image`) REFERENCES `image` (`Id_Image`);
+
+--
+-- Contraintes pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  ADD CONSTRAINT `fk_Id_Droit` FOREIGN KEY (`Id_Droit`) REFERENCES `droit` (`Id_Droit`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
