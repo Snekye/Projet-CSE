@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 20 mars 2023 à 16:50
+-- Généré le : mar. 21 mars 2023 à 10:39
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -75,7 +75,7 @@ CREATE TABLE `info` (
 --
 
 INSERT INTO `info` (`info_id`, `info_tel`, `info_email`, `info_msg`) VALUES
-(1, '01 02 03 04 05', 'testemail@gmail.com', 'GET IT TWISTED, GAMBLE. PLEASE START GAMBLING. GAMBLING IS AN INVESTMENT AND AN INVESTMENT ONLY .YOU WILL PROFIT, YOU WILL WIN. YOU WILL DO ALL OF THAT, YOU UNDERSTAND !? YOU WILL BECOME A BILLIONAIRE AND REBUILD YOUR FUCKING LIFE');
+(1, '01 02 03 04 05', 'testemail@gmail.com', 'test test test test test test test test test test test test test test test test test test test test test test test test ');
 
 -- --------------------------------------------------------
 
@@ -122,15 +122,17 @@ INSERT INTO `partenaire` (`partenaire_id`, `partenaire_nom`, `partenaire_descrip
 CREATE TABLE `utilisateur` (
   `utilisateur_id` int(11) NOT NULL,
   `utilisateur_login` varchar(250) NOT NULL,
-  `utilisateur_mdp` varchar(250) NOT NULL
+  `utilisateur_mdp` varchar(250) NOT NULL,
+  `utilisateur_nom` varchar(100) NOT NULL,
+  `utilisateur_prénom` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`utilisateur_id`, `utilisateur_login`, `utilisateur_mdp`) VALUES
-(1, 'admin', '$argon2i$v=19$m=16,t=2,p=1$dG1zdU1DSzN6TklMeXZKeA$v2lN2uEVdGm8xNgSySIguA');
+INSERT INTO `utilisateur` (`utilisateur_id`, `utilisateur_login`, `utilisateur_mdp`, `utilisateur_nom`, `utilisateur_prénom`) VALUES
+(1, 'admin', '$argon2i$v=19$m=16,t=2,p=1$dG1zdU1DSzN6TklMeXZKeA$v2lN2uEVdGm8xNgSySIguA', 'Admin', 'Test');
 
 --
 -- Index pour les tables déchargées
