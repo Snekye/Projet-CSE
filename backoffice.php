@@ -27,7 +27,7 @@ $query = $connexion->prepare("SELECT * FROM offre");
 $query->execute();
 $liste_offres = $query->fetchAll();
 
-$query = $connexion->prepare("SELECT * FROM message");
+$query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (message.Id_Partenaire = partenaire.Id_Partenaire);");
 $query->execute();
 $liste_messages = $query->fetchAll();
 
@@ -167,7 +167,7 @@ $liste_messages = $query->fetchAll();
             <td style='width: 20%;'><?=$element['Email_Message']?></td>
             <td style='width: 30%;'><?=$element['Contenu_Message']?></td>
             <td style='width: 5%;'><?=$element['Id_Offre']?></td>
-            <td style='width: 5%;'><?=$element['Id_Partenaire']?></td>
+            <td style='width: 5%;'><?=$element['Nom_Partenaire']?></td>
             <td style='width: 10%; display: flex; flex-wrap: wrap;'>
                 <button>Supprimer</button>
             </td>
