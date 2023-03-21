@@ -6,7 +6,7 @@ $message = "";
 
 if (isset($_POST['login']) && isset($_POST['password'])) {
     $query = $connexion->prepare('
-        SELECT utilisateur_login, utilisateur_mdp 
+        SELECT utilisateur_login, utilisateur_mdp, utilisateur_nom, utilisateur_prénom
         FROM utilisateur
         WHERE utilisateur_login = :login');
 
@@ -20,7 +20,9 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
         $validPassword = password_verify($_POST['password'], $userFound['utilisateur_mdp']);
         if ($validPassword) {
             $data = [
-                'login' => $_POST['login']
+                'login' => $_POST['login'],
+                'nom' => $userFound['utilisateur_nom'],
+                'prenom' => $userFound['utilisateur_prénom']
             ];
 
             $_SESSION['utilisateur'] = $data;
