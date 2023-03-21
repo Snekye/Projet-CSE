@@ -1,0 +1,76 @@
+/*========================GOOGLE POLICE ECRITURE=================  =======*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:400|Inter:700');
+
+*{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+
+
+body{
+    font-family: montserrat;
+    height: 12vh;
+    width: 100%;
+}
+
+
+
+
+
+.marge{
+    padding-top: 50px;
+    background-color: #efedee;
+    
+}
+
+
+nav{
+
+    background: #2e3b64
+}
+
+.container{
+    
+}
+
+
+.nav_logo{
+    background-color: white;
+    margin-left: 25vh;
+    padding: 0 10vh;
+    font-weight: bold;
+    z-index: 1;
+    
+}
+
+nav ul{
+    float: right;
+    margin-right: 3vh;
+}
+
+nav ul li{
+    display: inline-block;
+    line-height: 10vh;
+    margin: 0 1vh;
+}
+
+nav ul li a{
+    color: white;
+    font-size: 5vh;
+}
+
+
+
+footer{
+    margin-top: 5%;
+
+    background: #b6a786;
+}
+
+.nav_list:hover{
+    background-color: #b6a786;
+}
