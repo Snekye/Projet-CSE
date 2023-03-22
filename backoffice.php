@@ -19,7 +19,7 @@ $query = $connexion->prepare("SELECT * FROM info_accueil");
 $query->execute();
 $liste_info = $query->fetchAll()[0];
 
-$query = $connexion->prepare("SELECT * FROM partenaire");
+$query = $connexion->prepare("SELECT * FROM partenaire JOIN image ON partenaire.Id_Image = Image.Id_Image");
 $query->execute();
 $liste_partenaires = $query->fetchAll();
 
@@ -71,7 +71,7 @@ $liste_messages = $query->fetchAll();
             <th style='width: 10%;'>Nom</th>
             <th style='width: 30%;'>Description</th>
             <th style='width: 10%;'>Lien</th>
-            <th style='width: 30%;'>Image</th>
+            <th style='width: 20%;'>Image</th>
             <th style='width: 10%;'>Action</th>
         </tr>
     </thead>
@@ -84,9 +84,9 @@ $liste_messages = $query->fetchAll();
 
         <tr>
             <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
-            <td style='width: 30%;'><?=$element['Description_Partenaire']?></td>
+            <td style='width: 40%;'><?=$element['Description_Partenaire']?></td>
             <td style='width: 10%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
-            <td style='width: 30%;'><?=$element['Id_Image']?></td>
+            <td style='width: 20%;'><img src="<?=$element['Nom_Image']?>"></td>
             <td style='width: 25%;'>
                 <button>Modifier</button>
                 <button>Supprimer</button>
@@ -186,5 +186,8 @@ $liste_messages = $query->fetchAll();
         }
         table {
             padding: 0% 5%; font-size: 20px; text-align: center;
+        }
+        img {
+            width: 30%;
         }
     </style>
