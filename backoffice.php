@@ -5,7 +5,7 @@ session_start();
 //	Welcome user
 if (!empty($_SESSION)) {
 	echo "<h1 style='text-align: center;'>Bienvenue, "
-     . $_SESSION["utilisateur"]["prenom"] . ' ' . $_SESSION["utilisateur"]["nom"] . ' ! ^.^';
+     . $_SESSION["utilisateur"]["prenom"] . ' ' . $_SESSION["utilisateur"]["nom"] . ' ! ^.^ </h1>';
     } else {
         echo "<h1>Accès refusé.</h1>";
         die();
@@ -23,7 +23,7 @@ $query = $connexion->prepare("SELECT * FROM partenaire");
 $query->execute();
 $liste_partenaires = $query->fetchAll();
 
-$query = $connexion->prepare("SELECT * FROM offre");
+$query = $connexion->prepare("SELECT * FROM offre LEFT JOIN partenaire ON (offre.Id_Partenaire = partenaire.Id_Partenaire)");
 $query->execute();
 $liste_offres = $query->fetchAll();
 
@@ -121,7 +121,7 @@ $liste_messages = $query->fetchAll();
         foreach ($liste_offres as $element) { ?>
 
         <tr>
-            <td style='width: 10%;'></td>
+            <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
             <td style='width: 10%;'><?=$element['Nom_Offre']?></td>
             <td style='width: 30%;'><?=$element['Description_Offre']?></td>
             <td style='width: 10%;'><?=$element['Date_Debut_Offre']?></td>
