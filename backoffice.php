@@ -2,15 +2,6 @@
 require ('require_connexion_bdd.php');
 session_start();
 
-//	Welcome user
-if (!empty($_SESSION)) {
-	echo "<h1 style='text-align: center;'>Bienvenue, "
-     . $_SESSION["utilisateur"]["prenom"] . ' ' . $_SESSION["utilisateur"]["nom"] . ' ! ^.^ </h1>';
-    } else {
-        echo "<h1>Accès refusé.</h1>";
-        die();
-    }
-
 //Deconnexion
 require("require_deconnexion.php");
 
