@@ -33,6 +33,15 @@ $liste_messages = $query->fetchAll();
 
 ?>
 
+<section class="menu">
+    <div class="menubutton" onclick="affiche(0)">Présentation</div>
+    <div class="menubutton" onclick="affiche(1)">Partenaires</div>
+    <div class="menubutton" onclick="affiche(2)">Offres</div>
+    <div class="menubutton" onclick="affiche(3)">Messagerie</div>
+</section>
+
+<section class="presentation affiche">
+
 <h1>Présentation</h1>
 
 <table>
@@ -62,6 +71,10 @@ $liste_messages = $query->fetchAll();
     </tbody>
 
 </table>
+
+</section>
+
+<section class="partenaires affiche">
 
 <h1>Partenaires</h1>
 <table>
@@ -97,6 +110,10 @@ $liste_messages = $query->fetchAll();
 
     </tbody>
 </table>
+
+</section>
+
+<section class="offre affiche">
 
 <h1>Offres</h1>
 
@@ -139,6 +156,10 @@ $liste_messages = $query->fetchAll();
 
 </table>
 
+</section>
+
+<section class="messagerie affiche">
+
 <h1>Messagerie</h1>
 
 <table>
@@ -177,6 +198,8 @@ $liste_messages = $query->fetchAll();
 
     </tbody>
 
+    </section>
+
     <style>
         td, th {
             border: 3px solid #DDDDDD;
@@ -189,5 +212,37 @@ $liste_messages = $query->fetchAll();
         }
         img {
             width: 30%;
+            padding: 2%;
+        }
+        h1 {
+            text-align: center;
+            font-size: 300%;
+        }
+        .menu {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .menu div {
+            border: 3px solid #DDDDDD;
+            padding: 2%;
+            width: 20%;
+            text-align: center;
+            font-size: 150%;
+            margin: 1%;
         }
     </style>
+
+    <script>
+        let sections = document.getElementsByClassName("affiche");
+        let buttons = document.getElementsByClassName("menubutton");
+        function affiche(id) {
+            for (i = 0; i < sections.length; i++) {
+                sections[i].setAttribute("style","display: none;")
+                buttons[i].setAttribute("style","font-weight: normal;")
+            }
+            sections[id].setAttribute("style","display: block;")
+            buttons[id].setAttribute("style","font-weight: bold;")
+        }
+        affiche(0);
+    </script>
