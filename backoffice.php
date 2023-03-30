@@ -5,7 +5,7 @@ session_start();
 //Deconnexion
 require("require_deconnexion.php");
 
-// récup BDD
+//Récupération BDD
 $query = $connexion->prepare("SELECT * FROM info_accueil");
 $query->execute();
 $liste_info = $query->fetchAll()[0];
@@ -21,6 +21,26 @@ $liste_offres = $query->fetchAll();
 $query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (message.Id_Partenaire = partenaire.Id_Partenaire) LEFT JOIN offre ON (message.Id_Offre = offre.Id_Offre);");
 $query->execute();
 $liste_messages = $query->fetchAll();
+
+
+//Modification BDD
+if (empty($_POST) === False) {
+    
+    //Delete
+    if (isset($_POST['delete'])) {
+        if (isset($_POST['delete']['id'])) {
+            try {
+                $query = $connexion->prepare('DELETE FROM partenaire WHERE Id_Partenaire = :id');
+                $query->bindParam(':id', $_POST['delete']['id']);
+                $query->execute();
+                header('Location: ./backoffice.php');
+            } catch (\Exception $exception) {
+                var_dump($exception);
+            }
+        }
+    }
+    //Update
+}
 
 ?>
 
@@ -92,8 +112,11 @@ $liste_messages = $query->fetchAll();
             <td style='width: 10%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
             <td style='width: 20%;'><img src="<?=$element['Nom_Image']?>"></td>
             <td style='width: 25%;'>
+            <form action="#" method="POST" name="delete">
                 <button>Modifier</button>
                 <button>Supprimer</button>
+                <input type="hidden" name="delete[id]" value="<?= $element['Id_Partenaire'] ?>">
+            </form>
             </td>
         </tr>
         
