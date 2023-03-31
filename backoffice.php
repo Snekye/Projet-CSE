@@ -28,15 +28,27 @@ if (empty($_POST) === False) {
 
     //Delete
     if (isset($_POST['delete_partenaire'])) {
+        //Verification si il y a des offres du partenaire à supprimer
         if (isset($_POST['delete_partenaire']['id'])) {
-            try {
-                $query = $connexion->prepare('DELETE FROM partenaire WHERE Id_Partenaire = :id');
-                $query->bindParam(':id', $_POST['delete_partenaire']['id']);
-                $query->execute();
-                $_POST['delete_partenaire'] = [];
-                header('Location: ./backoffice.php');
-            } catch (\Exception $exception) {
-                var_dump($exception);
+            $query = $connexion->prepare("SELECT Id_Offre FROM offre LEFT JOIN partenaire ON (offre.Id_Partenaire = partenaire.Id_Partenaire) WHERE offre.Id_Partenaire = :id");
+            $query->bindParam(':id', $_POST['delete_partenaire']['id']);
+            $query->execute();
+
+            if ($query->fetchAll() != []) {
+                echo '<span style="color: red;">Refus de suppression : Le partenaire possède des offres</span>';
+            }
+            else {
+
+                try {
+                    $query = $connexion->prepare('DELETE FROM partenaire WHERE Id_Partenaire = :id');
+                    $query->bindParam(':id', $_POST['delete_partenaire']['id']);
+                    $query->execute();
+                    $_POST['delete_partenaire'] = [];
+                    echo '<span style="color: green;">Partenaire supprimé.</span>';
+                    header('refresh:3;Location: ./backoffice.php');
+                } catch (\Exception $exception) {
+                    var_dump($exception);
+                }
             }
         }
     }
@@ -47,7 +59,8 @@ if (empty($_POST) === False) {
                 $query->bindParam(':id', $_POST['delete_offre']['id']);
                 $query->execute();
                 $_POST['delete_offre'] = [];
-                header('Location: ./backoffice.php');
+                echo '<span style="color: green;">Offre supprimée.</span>';
+                header('refresh:3;Location: ./backoffice.php');
             } catch (\Exception $exception) {
                 var_dump($exception);
             }
@@ -60,7 +73,8 @@ if (empty($_POST) === False) {
                 $query->bindParam(':id', $_POST['delete_message']['id']);
                 $query->execute();
                 $_POST['delete_message'] = [];
-                header('Location: ./backoffice.php');
+                echo '<span style="color: green;">Message supprimé.</span>';
+                header('refresh:3;Location: ./backoffice.php');
             } catch (\Exception $exception) {
                 var_dump($exception);
             }
@@ -144,6 +158,7 @@ if (empty($_POST) === False) {
                     <button>Modifier</button>
                     <button>Supprimer</button>
                     <input type="hidden" name="delete_partenaire[id]" value="<?=$element['Id_Partenaire'] ?>">
+                    <input type="hidden" name="page" value="1">
                 </form>
             </td>
         </tr>
@@ -168,8 +183,8 @@ if (empty($_POST) === False) {
             <th style='width: 30%;'>Description</th>
             <th style='width: 10%;'>Date de début</th>
             <th style='width: 10%;'>Date de fin</th>
-            <th style='width: 10%;'>Places minimum</th>
-            <th style='width: 10%;'>Action</th>
+            <th style='width: 5%;'>Places minimum</th>
+            <th style='width: 15%;'>Action</th>
         </tr>
     </thead>
 
@@ -185,8 +200,8 @@ if (empty($_POST) === False) {
             <td style='width: 30%;'><?=$element['Description_Offre']?></td>
             <td style='width: 10%;'><?=$element['Date_Debut_Offre']?></td>
             <td style='width: 10%;'><?=$element['Date_Fin_Offre']?></td>
-            <td style='width: 10%;'><?=$element['Nombre_Place_Min_Offre']?></td>
-            <td style='width: 10%; display: flex; flex-wrap: wrap;'>
+            <td style='width: 5%;'><?=$element['Nombre_Place_Min_Offre']?></td>
+            <td style='width: 15%;'>
                 <form action="#" method="POST" name="delete">
                     <button>Modifier</button>
                     <button>Supprimer</button>
@@ -234,7 +249,7 @@ if (empty($_POST) === False) {
             <td style='width: 30%;'><?=$element['Contenu_Message']?></td>
             <td style='width: 5%;'><?=$element['Nom_Offre']?></td>
             <td style='width: 5%;'><?=$element['Nom_Partenaire']?></td>
-            <td style='width: 10%; display: flex; flex-wrap: wrap;'>
+            <td style='width: 10%;'>
                 <form action="#" method="POST" name="delete">
                     <button>Supprimer</button>
                     <input type="hidden" name="delete_message[id]" value="<?=$element['Id_Message'] ?>">
@@ -287,10 +302,10 @@ if (empty($_POST) === False) {
         function affiche(id) {
             for (i = 0; i < sections.length; i++) {
                 sections[i].setAttribute("style","display: none;")
-                buttons[i].setAttribute("style","font-weight: normal;")
+                buttons[i].setAttribute("style","border-color: light_grey;")
             }
             sections[id].setAttribute("style","display: block;")
-            buttons[id].setAttribute("style","font-weight: bold;")
+            buttons[id].setAttribute("style","border-color: black;")
         }
         affiche(0);
     </script>
