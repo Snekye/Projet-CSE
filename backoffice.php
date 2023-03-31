@@ -40,6 +40,32 @@ if (empty($_POST) === False) {
             }
         }
     }
+    if (isset($_POST['delete_offre'])) {
+        if (isset($_POST['delete_offre']['id'])) {
+            try {
+                $query = $connexion->prepare('DELETE FROM offre WHERE Id_Offre = :id');
+                $query->bindParam(':id', $_POST['delete_offre']['id']);
+                $query->execute();
+                $_POST['delete_offre'] = [];
+                header('Location: ./backoffice.php');
+            } catch (\Exception $exception) {
+                var_dump($exception);
+            }
+        }
+    }
+    if (isset($_POST['delete_message'])) {
+        if (isset($_POST['delete_message']['id'])) {
+            try {
+                $query = $connexion->prepare('DELETE FROM message WHERE Id_Message = :id');
+                $query->bindParam(':id', $_POST['delete_message']['id']);
+                $query->execute();
+                $_POST['delete_message'] = [];
+                header('Location: ./backoffice.php');
+            } catch (\Exception $exception) {
+                var_dump($exception);
+            }
+        }
+    }
     //Update
 }
 
@@ -114,11 +140,11 @@ if (empty($_POST) === False) {
             <td style='width: 10%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
             <td style='width: 20%;'><img src="<?=$element['Nom_Image']?>"></td>
             <td style='width: 25%;'>
-            <form action="#" method="POST" name="delete">
-                <button>Modifier</button>
-                <button>Supprimer</button>
-                <input type="hidden" name="delete_partenaire[id]" value="<?=$element['Id_Partenaire'] ?>">
-            </form>
+                <form action="#" method="POST" name="delete">
+                    <button>Modifier</button>
+                    <button>Supprimer</button>
+                    <input type="hidden" name="delete_partenaire[id]" value="<?=$element['Id_Partenaire'] ?>">
+                </form>
             </td>
         </tr>
         
@@ -161,8 +187,11 @@ if (empty($_POST) === False) {
             <td style='width: 10%;'><?=$element['Date_Fin_Offre']?></td>
             <td style='width: 10%;'><?=$element['Nombre_Place_Min_Offre']?></td>
             <td style='width: 10%; display: flex; flex-wrap: wrap;'>
-                <button>Modifier</button>
-                <button>Supprimer</button>
+                <form action="#" method="POST" name="delete">
+                    <button>Modifier</button>
+                    <button>Supprimer</button>
+                    <input type="hidden" name="delete_offre[id]" value="<?=$element['Id_Offre'] ?>">
+                </form>
             </td>
         </tr>
         
@@ -206,7 +235,10 @@ if (empty($_POST) === False) {
             <td style='width: 5%;'><?=$element['Nom_Offre']?></td>
             <td style='width: 5%;'><?=$element['Nom_Partenaire']?></td>
             <td style='width: 10%; display: flex; flex-wrap: wrap;'>
-                <button>Supprimer</button>
+                <form action="#" method="POST" name="delete">
+                    <button>Supprimer</button>
+                    <input type="hidden" name="delete_message[id]" value="<?=$element['Id_Message'] ?>">
+                </form>
             </td>
         </tr>
         
