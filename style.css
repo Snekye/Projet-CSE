@@ -12,12 +12,20 @@
 
 
 body{
-    font-family: montserrat;
-    height: 12vh;
-    width: 100%;
+    font-family: Montserrat;
+    font-family: Inter;
+    
 }
 
 
+nav{
+    float: none;
+    height: 50px;
+    padding-left: 38%;
+    background: #2e3b64;
+    display: flex;
+    
+}
 
 
 
@@ -27,50 +35,137 @@ body{
     
 }
 
+/*========================HEADER=================  =======*/
 
-nav{
 
-    background: #2e3b64
+header{
+    z-index: 1;
 }
 
-.container{
+
+
+
+.nav_logo::after{
+    content: '';
     
+}
+
+.nav_list{
+    position: relative;
+    overflow: hidden;
+}
+
+.nav_item{
+    display: flex;
+    float: inline-start;
+    margin-right: 2vh;
+    justify-content: space-evenly;
+}
+
+
+
+
+nav ul li a{
+    color: white;
+    font-size: 3vh;
+    text-align: center;
+    padding: 2vh 1vh;
+    text-decoration: none;
+}
+
+.nav_item:hover{
+    background: #b6a786;
+    transition: .5s;
+}
+
+
+
+/*========================SIDE BAR========================*/
+
+
+.sidebar{
+   
+    margin-left: 16%;
+    width: auto;
+    top: 0;
+    position: absolute;
+    display: flex;
+    text-align: center;
+}
+
+.menu{
+    width: 32vh;
+    background-color: white;
+}
+
+.menu a{
+    text-decoration: none;
+    color: #b6a786;
 }
 
 
 .nav_logo{
+    height: 52%;
     background-color: white;
-    margin-left: 25vh;
-    padding: 0 10vh;
     font-weight: bold;
-    z-index: 1;
+    display: flex;
+     
     
 }
 
-nav ul{
-    float: right;
-    margin-right: 3vh;
-}
 
-nav ul li{
-    display: inline-block;
-    line-height: 10vh;
-    margin: 0 1vh;
-}
+    
 
-nav ul li a{
-    color: white;
-    font-size: 5vh;
+
+/*========================Accueil========================*/
+
+.home{
+    width: 50%;
+    margin-left: 35%;
+    padding-top: 4%;
 }
 
 
+.presentation {
+    right: 0;
+    padding   : 1em 1em;
+    position  : relative;
+    background-color: #D9D9D9;
+}
+
+
+.sous_titre{
+    color: #2e3b64;
+}
+
+.texte_presentation{
+    padding-top: 3%;
+}
+
+.affiche_offre{
+    padding-top: 3%;
+    font: Montserrat;
+    font-weight: 400;
+    size: 30px;
+    line-height: 36.57px;
+    font-size: xx-large;
+}
+
+.annonce{
+    background-color: #efedee;
+}
+
+
+
+/*========================FOOTER========================*/
 
 footer{
     margin-top: 5%;
+    position:absolute;
+    bottom:0;  
+    width:100%;
+    height:100px;
 
     background: #b6a786;
 }
 
-.nav_list:hover{
-    background-color: #b6a786;
-}
