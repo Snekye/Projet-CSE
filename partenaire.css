@@ -10,6 +10,7 @@
     border: 15px solid pink;
 }
 
+/* billet partenaire */
 .un_partenaire{
     width: 20%;
     height: 40%;
@@ -19,6 +20,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    display: none;
 }
 .un_partenaire img{
     width: 90%;
@@ -32,6 +34,65 @@
 .un_partenaire a{
     padding-top: 1%;
 }
+
+/* modal de la section partenaire */
+.info_partenaire{
+    margin: 15vh auto;
+    padding: 2%;
+    border: 1px solid black;
+    box-shadow: 30px 30px 5px gray;
+    width: 75%;
+    height: 65%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+.info_partenaire img{
+    width: 15%;
+    height: 30%;
+    margin: 3% 5%;
+    border: 1px black solid;
+}
+.info_partenaire p{
+    width: 90%;
+    height: 50%;
+    padding: 3% 5%;
+    border: 1px solid black;
+}
+
+.suppression{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    border: none;
+    display: flex;
+    background-color: #fafafa;
+    align-items: center;
+    position: relative;
+}
+.suppression span{
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: #333;
+    position: absolute;
+    pointer-events: none;
+}
+.suppression span:nth-child(1){
+    transform: translate(0px) rotate(135deg);
+}
+.suppression span:nth-child(2){
+    transform: translate(0) rotate(-135deg);
+}
+.suppression span :nth-child(1),:nth-child(2){
+    transition: transform 0.3s ease-out;
+}
+.suppression.fermer span :nth-child(1){
+    transform: translate(0px) rotate(0);
+}
+.suppression.fermer span :nth-child(2){
+    transform: translate(0px) rotate(0);
+}
 /* affichage pour la tablette*/
 @media (max-width:900px) {
     .un_partenaire{
@@ -43,6 +104,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        display: none;
     }
     .un_partenaire img{
         border: 1px solid black;
@@ -61,6 +123,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        display: none;
     }
     .un_partenaire img{
         border: 1px solid black;
