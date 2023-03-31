@@ -25,14 +25,15 @@ $liste_messages = $query->fetchAll();
 
 //Modification BDD
 if (empty($_POST) === False) {
-    
+
     //Delete
-    if (isset($_POST['delete'])) {
-        if (isset($_POST['delete']['id'])) {
+    if (isset($_POST['delete_partenaire'])) {
+        if (isset($_POST['delete_partenaire']['id'])) {
             try {
                 $query = $connexion->prepare('DELETE FROM partenaire WHERE Id_Partenaire = :id');
-                $query->bindParam(':id', $_POST['delete']['id']);
+                $query->bindParam(':id', $_POST['delete_partenaire']['id']);
                 $query->execute();
+                $_POST['delete_partenaire'] = [];
                 header('Location: ./backoffice.php');
             } catch (\Exception $exception) {
                 var_dump($exception);
@@ -104,6 +105,7 @@ if (empty($_POST) === False) {
 
         <?php 
         
+        $table = "partenaire";
         foreach ($liste_partenaires as $element) { ?>
 
         <tr>
@@ -115,7 +117,7 @@ if (empty($_POST) === False) {
             <form action="#" method="POST" name="delete">
                 <button>Modifier</button>
                 <button>Supprimer</button>
-                <input type="hidden" name="delete[id]" value="<?= $element['Id_Partenaire'] ?>">
+                <input type="hidden" name="delete_partenaire[id]" value="<?=$element['Id_Partenaire'] ?>">
             </form>
             </td>
         </tr>
