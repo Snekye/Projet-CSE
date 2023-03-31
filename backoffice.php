@@ -35,7 +35,7 @@ if (empty($_POST) === False) {
             $query->execute();
 
             if ($query->fetchAll() != []) {
-                echo '<span style="color: red;">Refus de suppression : Le partenaire possède des offres</span>';
+                $message = '<span style="color: red;">Refus de suppression : Le partenaire possède des offres</span>';
             }
             else {
 
@@ -43,9 +43,8 @@ if (empty($_POST) === False) {
                     $query = $connexion->prepare('DELETE FROM partenaire WHERE Id_Partenaire = :id');
                     $query->bindParam(':id', $_POST['delete_partenaire']['id']);
                     $query->execute();
-                    $_POST['delete_partenaire'] = [];
-                    echo '<span style="color: green;">Partenaire supprimé.</span>';
-                    header('refresh:3;Location: ./backoffice.php');
+                    $message = '<span style="color: green;">Partenaire supprimé.</span>';
+                    header("refresh:2;url=./backoffice.php");
                 } catch (\Exception $exception) {
                     var_dump($exception);
                 }
@@ -58,9 +57,8 @@ if (empty($_POST) === False) {
                 $query = $connexion->prepare('DELETE FROM offre WHERE Id_Offre = :id');
                 $query->bindParam(':id', $_POST['delete_offre']['id']);
                 $query->execute();
-                $_POST['delete_offre'] = [];
-                echo '<span style="color: green;">Offre supprimée.</span>';
-                header('refresh:3;Location: ./backoffice.php');
+                $message = '<span style="color: green;">Offre supprimée.</span>';
+                header("refresh:3;url=./backoffice.php");
             } catch (\Exception $exception) {
                 var_dump($exception);
             }
@@ -72,15 +70,16 @@ if (empty($_POST) === False) {
                 $query = $connexion->prepare('DELETE FROM message WHERE Id_Message = :id');
                 $query->bindParam(':id', $_POST['delete_message']['id']);
                 $query->execute();
-                $_POST['delete_message'] = [];
-                echo '<span style="color: green;">Message supprimé.</span>';
-                header('refresh:3;Location: ./backoffice.php');
+                $message = '<span style="color: green;">Message supprimé.</span>';
+                header("refresh:3;url=./backoffice.php");
             } catch (\Exception $exception) {
                 var_dump($exception);
             }
         }
     }
     //Update
+
+    unset($_POST);
 }
 
 ?>
@@ -91,6 +90,8 @@ if (empty($_POST) === False) {
     <div class="menubutton" onclick="affiche(2)">Offres</div>
     <div class="menubutton" onclick="affiche(3)">Messagerie</div>
 </section>
+
+<?=isset($message) ? $message : null?>
 
 <section class="presentation affiche">
 

@@ -27,10 +27,10 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
             $_SESSION['utilisateur'] = $data;
 
-            $message = 'Vous êtes maintenant connecté!';
-            header("refresh:2;url=./backoffice.php");
+            $message = '<span style="color: green;">Vous êtes maintenant connecté!</span>';
+            header("refresh:3;url=./backoffice.php");
         } else {
-            $message = "Mot de passe incorrect.";
+            $message = '<span style="color: green">Mot de passe incorrect.</span>';
         }
     }
 }
