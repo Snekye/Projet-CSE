@@ -12,7 +12,7 @@ if (!empty($_SESSION)) {
 
 if (!empty($_POST["deconnexion"])) {
     session_destroy();
-    echo ("<span style='color: green'>Vous vous êtes déconnecté.</span>");
+    $message = "<span style='color: green'>Vous êtes maintenant déconnecté.</span>";
     header("refresh:3;url=./connexion.php");
 }
 ?>

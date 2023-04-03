@@ -2,8 +2,6 @@
 require ('require_connexion_bdd.php');
 session_start();
 
-$message = "";
-
 if (isset($_POST['login']) && isset($_POST['password'])) {
     $query = $connexion->prepare('
         SELECT Nom_Utilisateur, Prenom_Utilisateur, Email_Utilisateur, Password_Utilisateur
@@ -15,7 +13,8 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
     $userFound = $query->fetch(PDO::FETCH_ASSOC);
 
     if (!$userFound) {
-        $message = "Vos identifiants n'existent pas.";
+        $message = '<span style="color: red">Identifiants inconnus.</span>';
+        $_POST['password'] = '';
     } else {
         $validPassword = password_verify($_POST['password'], $userFound['Password_Utilisateur']);
         if ($validPassword) {
@@ -30,11 +29,13 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
             $message = '<span style="color: green;">Vous êtes maintenant connecté!</span>';
             header("refresh:3;url=./backoffice.php");
         } else {
-            $message = '<span style="color: green">Mot de passe incorrect.</span>';
+            $message = '<span style="color: red">Mot de passe incorrect.</span>';
+            $_POST['password'] = '';
         }
     }
 }
 
+require('require_popup.php');
 ?>
 
 <head>
@@ -47,12 +48,11 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
 
     <form action="#" method="POST">
 
-        <?= $message ?><br>
         <label for="login">Login :</label>
-        <input id="login" type="text" name="login"><br>
+        <input id="login" type="text" name="login" value="<?= isset($_POST['login']) ? $_POST['login'] : null ?>"><br>
 
         <label for="password">Mot de passe :</label>
-        <input id="password" type="password" name="password"/><br>
+        <input id="password" type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : null ?>"><br>
 
         <button>Connexion</button>
 

@@ -44,7 +44,6 @@ if (empty($_POST) === False) {
                     $query->bindParam(':id', $_POST['delete_partenaire']['id']);
                     $query->execute();
                     $message = '<span style="color: green;">Partenaire supprimé.</span>';
-                    header("refresh:2;url=./backoffice.php");
                 } catch (\Exception $exception) {
                     var_dump($exception);
                 }
@@ -58,7 +57,6 @@ if (empty($_POST) === False) {
                 $query->bindParam(':id', $_POST['delete_offre']['id']);
                 $query->execute();
                 $message = '<span style="color: green;">Offre supprimée.</span>';
-                header("refresh:3;url=./backoffice.php");
             } catch (\Exception $exception) {
                 var_dump($exception);
             }
@@ -71,7 +69,6 @@ if (empty($_POST) === False) {
                 $query->bindParam(':id', $_POST['delete_message']['id']);
                 $query->execute();
                 $message = '<span style="color: green;">Message supprimé.</span>';
-                header("refresh:3;url=./backoffice.php");
             } catch (\Exception $exception) {
                 var_dump($exception);
             }
@@ -79,9 +76,10 @@ if (empty($_POST) === False) {
     }
     //Update
 
-    unset($_POST);
+    $_POST = [];
 }
 
+require ('require_popup.php');
 ?>
 
 <section class="menu">
@@ -91,8 +89,6 @@ if (empty($_POST) === False) {
     <div class="menubutton" onclick="affiche(3)">Messagerie</div>
 </section>
 
-<?=isset($message) ? $message : null?>
-
 <section class="presentation affiche">
 
 <h1>Présentation</h1>
@@ -101,12 +97,12 @@ if (empty($_POST) === False) {
 
     <thead>
         <tr>
-            <th style='width: 10%;'>Tel</th>
-            <th style='width: 10%;'>Email</th>
-            <th style='width: 20%;'>Emplacement</th>
-            <th style='width: 10%;'>Titre</th>
-            <th style='width: 30%;'>Texte</th>
-            <th style='width: 10%;'>Action</th>
+            <th>Tel</th>
+            <th>Email</th>
+            <th>Emplacement</th>
+            <th>Titre</th>
+            <th>Texte</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -116,7 +112,7 @@ if (empty($_POST) === False) {
             <td style='width: 10%;'><?=$liste_info['Email_Info_Accueil']?></td>
             <td style='width: 20%;'><?=$liste_info['Emplacement_Bureau_Info_Accueil']?></td>
             <td style='width: 10%;'><?=$liste_info['Titre_Info_Accueil']?></td>
-            <td style='width: 30%;'><?=$liste_info['Texte_Info_Accueil']?></td>
+            <td style='width: 40%;'><?=$liste_info['Texte_Info_Accueil']?></td>
             <td style='width: 10%'>
                 <button>Modifier</button>
             </td>
@@ -134,11 +130,11 @@ if (empty($_POST) === False) {
 
     <thead>
         <tr>
-            <th style='width: 10%;'>Nom</th>
-            <th style='width: 30%;'>Description</th>
-            <th style='width: 10%;'>Lien</th>
-            <th style='width: 20%;'>Image</th>
-            <th style='width: 10%;'>Action</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Lien</th>
+            <th>Image</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -179,13 +175,13 @@ if (empty($_POST) === False) {
 
     <thead>
         <tr>
-            <th style='width: 10%;'>Partenaire</th>
-            <th style='width: 10%;'>Nom</th>
-            <th style='width: 30%;'>Description</th>
-            <th style='width: 10%;'>Date de début</th>
-            <th style='width: 10%;'>Date de fin</th>
-            <th style='width: 5%;'>Places minimum</th>
-            <th style='width: 15%;'>Action</th>
+            <th>Partenaire</th>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Date de début</th>
+            <th>Date de fin</th>
+            <th>Places minimum</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -227,13 +223,13 @@ if (empty($_POST) === False) {
 
     <thead>
         <tr>
-            <th style='width: 10%;'>Nom</th>
-            <th style='width: 10%;'>Prénom</th>
-            <th style='width: 20%;'>Email</th>
-            <th style='width: 30%;'>Message</th>
-            <th style='width: 5%;'>Offre</th>
-            <th style='width: 5%;'>Partenaire</th>
-            <th style='width: 10%;'>Action</th>
+            <th>Nom</th>
+            <th>Prénom</th>
+            <th>Email</th>
+            <th>Message</th>
+            <th>Offre</th>
+            <th>Partenaire</th>
+            <th>Action</th>
         </tr>
     </thead>
 
@@ -262,11 +258,18 @@ if (empty($_POST) === False) {
 
     </tbody>
 
-    </section>
+</section>
 
     <style>
         td, th {
             border: 3px solid #DDDDDD;
+            border-radius: 5px;
+        }
+        td:hover, th:hover {
+            border: 3px solid black;
+        }
+        tr {
+            border: 3px solid black;
         }
         button {
             font-size: 16px;
@@ -274,7 +277,7 @@ if (empty($_POST) === False) {
         table {
             padding: 0% 5%; font-size: 20px; text-align: center;
         }
-        img {
+        .partenaires img {
             width: 30%;
             padding: 2%;
         }
@@ -294,12 +297,13 @@ if (empty($_POST) === False) {
             text-align: center;
             font-size: 150%;
             margin: 1%;
+            border-radius: 5px;
         }
     </style>
 
     <script>
-        let sections = document.getElementsByClassName("affiche");
-        let buttons = document.getElementsByClassName("menubutton");
+        let sections = document.getElementsByClassName("affiche")
+        let buttons = document.getElementsByClassName("menubutton")
         function affiche(id) {
             for (i = 0; i < sections.length; i++) {
                 sections[i].setAttribute("style","display: none;")
