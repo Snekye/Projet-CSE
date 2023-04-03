@@ -1,8 +1,3 @@
-<form action="#" method="POST" name="deconnexion">
-    <input type="hidden" name="deconnexion" value="deconnexion">
-    <button type="submit">Deconnexion</button>
-</form>
-
 <?php
 require ('require_connexion_bdd.php');
 
@@ -17,7 +12,12 @@ if (!empty($_SESSION)) {
 
 if (!empty($_POST["deconnexion"])) {
     session_destroy();
-    echo ("Vous vous êtes déconnecté.");
-    header("refresh:2;url=./connexion.php");
+    echo ("<span style='color: green'>Vous vous êtes déconnecté.</span>");
+    header("refresh:3;url=./connexion.php");
 }
 ?>
+
+<form action="#" method="POST" name="deconnexion">
+    <input type="hidden" name="deconnexion" value="deconnexion">
+    <button type="submit">Deconnexion</button>
+</form>
