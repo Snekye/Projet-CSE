@@ -12,7 +12,7 @@ if (isset($message)) { ?>
     width: 80%;
     margin: 0 10% 0 10%;
     border: 3px solid #000000;
-    z-index: 1;
+    z-index: 3;
     text-align: center;
     background-color: #FFFFFF;
     transition: .5s;
