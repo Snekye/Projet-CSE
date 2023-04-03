@@ -79,7 +79,7 @@ if (empty($_POST) === False) {
     $_POST = [];
 }
 
-require ('require_popup.php');
+require ('..\require_popup.php');
 ?>
 
 <section class="menu">

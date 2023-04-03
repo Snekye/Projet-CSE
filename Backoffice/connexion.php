@@ -35,7 +35,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
     }
 }
 
-require('require_popup.php');
+require('..\require_popup.php');
 ?>
 
 <head>
