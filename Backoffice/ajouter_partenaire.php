@@ -7,7 +7,7 @@ $query->execute();
 
 $imagePartenaire = $query->fetchAll();
 
-var_dump($imagePartenaire);
+//var_dump($imagePartenaire);
 
 
 if (empty($_POST) === false) {
@@ -38,24 +38,23 @@ if (empty($_POST) === false) {
 
     if (empty($erreurs)) {
         try {
-            $requeteInsertion = $connexion->prepare('INSERT INTO image (Nom_Image) VALUES (:Nom_Image)');
-            $requeteInsertion->bindParam(':Nom_Image', $_POST['nomImagePartenaire']);
-            $requeteInsertion->execute();
+        //    $requeteInsertion = $connexion->prepare('INSERT INTO image (Nom_Image) VALUES (:Nom_Image)');
+        //    $requeteInsertion->bindParam(':Nom_Image', $_POST['nomImagePartenaire']);
+        //    $requeteInsertion->execute();
 
 
             $requeteInsertion = $connexion->prepare('INSERT INTO Partenaire (Nom_Partenaire, Description_Partenaire, Lien_Partenaire, Id_Image) VALUES (:Nom_Partenaire, :Description_Partenaire, :Lien_Partenaire, :Id_Image)');
             $requeteInsertion->bindParam(':Nom_Partenaire', $_POST['nomPartenaire']);
             $requeteInsertion->bindParam(':Description_Partenaire', $_POST['descriptionPartenaire']);
-            $requeteInsertion->bindParam(':Lien_Partenaire', $_POST['lienPartenaire']);          
-            $requeteInsertion->bindParam(':Id_Image', $imagePartenaire); 
+            $requeteInsertion->bindParam(':Lien_Partenaire', $_POST['lienPartenaire']);
+			$requeteInsertion->bindParam(':Id_Image', $_POST['nomImagePartenaire']);          
+        //    $requeteInsertion->bindParam(':Id_Image', $imagePartenaire); 
        
             $requeteInsertion->execute();
 
             echo 'Votre demande a bien été prise en compte.';
         } catch (\Exception $exception) {
             echo 'Erreur lors de l\'ajout du partenaire';
-            // Debug de l'erreur :
-            // var_dump($exception->getMessage());
         }
     }
 }
