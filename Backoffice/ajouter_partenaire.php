@@ -42,7 +42,6 @@ if (empty($_POST) === false) {
         //    $requeteInsertion->bindParam(':Nom_Image', $_POST['nomImagePartenaire']);
         //    $requeteInsertion->execute();
 
-
             $requeteInsertion = $connexion->prepare('INSERT INTO Partenaire (Nom_Partenaire, Description_Partenaire, Lien_Partenaire, Id_Image) VALUES (:Nom_Partenaire, :Description_Partenaire, :Lien_Partenaire, :Id_Image)');
             $requeteInsertion->bindParam(':Nom_Partenaire', $_POST['nomPartenaire']);
             $requeteInsertion->bindParam(':Description_Partenaire', $_POST['descriptionPartenaire']);
@@ -60,10 +59,6 @@ if (empty($_POST) === false) {
 }
 
 ?>
-
-
-
-
 
 <form action="#" method="POST">
 		
