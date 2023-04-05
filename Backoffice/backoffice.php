@@ -27,18 +27,25 @@ $liste_messages = $query->fetchAll();
 if (empty($_POST) === False) {
 
     //Delete
+
+    //Delete partenaire
     if (isset($_POST['delete_partenaire'])) {
-        //Verification si il y a des offres du partenaire à supprimer
         if (isset($_POST['delete_partenaire']['id'])) {
+            //Verification si il y a des offres associées au partenaire
             $query = $connexion->prepare("SELECT Id_Offre FROM offre LEFT JOIN partenaire ON (offre.Id_Partenaire = partenaire.Id_Partenaire) WHERE offre.Id_Partenaire = :id");
             $query->bindParam(':id', $_POST['delete_partenaire']['id']);
             $query->execute();
 
-            if ($query->fetchAll() != []) {
-                $message = '<span style="color: red;">Refus de suppression : Le partenaire possède des offres</span>';
+            //Verification si il y a des messages associés au partenaire
+            $query2 = $connexion->prepare("SELECT Id_Message FROM message LEFT JOIN partenaire ON (message.Id_Partenaire = partenaire.Id_Partenaire) WHERE message.Id_Partenaire = :id");
+            $query2->bindParam(':id', $_POST['delete_partenaire']['id']);
+            $query2->execute();
+
+            if (($query->fetchAll() != []) or ($query2->fetchAll() != [])) {
+                $message = '<span style="color: red;">Refus de suppression : Le partenaire possède des offres ou messages associés.</span>';
             }
             else {
-
+                
                 try {
                     $query = $connexion->prepare('DELETE FROM partenaire WHERE Id_Partenaire = :id');
                     $query->bindParam(':id', $_POST['delete_partenaire']['id']);
@@ -50,18 +57,30 @@ if (empty($_POST) === False) {
             }
         }
     }
+    //Delete offre
     if (isset($_POST['delete_offre'])) {
         if (isset($_POST['delete_offre']['id'])) {
-            try {
-                $query = $connexion->prepare('DELETE FROM offre WHERE Id_Offre = :id');
-                $query->bindParam(':id', $_POST['delete_offre']['id']);
-                $query->execute();
-                $message = '<span style="color: green;">Offre supprimée.</span>';
-            } catch (\Exception $exception) {
-                var_dump($exception);
+            //Verification si il y a des messages associés à l'offre
+            $query = $connexion->prepare("SELECT Id_Message FROM message LEFT JOIN offre ON (message.Id_Offre = offre.Id_Offre) WHERE message.Id_Offre = :id");
+            $query->bindParam(':id', $_POST['delete_offre']['id']);
+            $query->execute();
+
+            if ($query->fetchAll() != []) {
+                $message = "<span style='color: red;'>Refus de suppression : L'offre possède des messages associés.</span>";
+            }
+            else {
+                try {
+                    $query = $connexion->prepare('DELETE FROM offre WHERE Id_Offre = :id');
+                    $query->bindParam(':id', $_POST['delete_offre']['id']);
+                    $query->execute();
+                    $message = '<span style="color: green;">Offre supprimée.</span>';
+                } catch (\Exception $exception) {
+                    var_dump($exception);
+                }
             }
         }
     }
+    //Delete message
     if (isset($_POST['delete_message'])) {
         if (isset($_POST['delete_message']['id'])) {
             try {
@@ -81,6 +100,35 @@ if (empty($_POST) === False) {
 
 require ('..\require_popup.php');
 ?>
+
+<div class="bg">⠀</div>
+
+<div class="deletepartenaire deleteform">
+    <p>Êtes vous sûr(e) de vouloir supprimer ce partenaire ?</p>
+    <form action="#" method="POST" name="delete">
+        <button>Supprimer</button>
+        <input type="hidden" name="delete_partenaire[id]" value="" class="deletepartenaireinput">
+    </form>
+    <button onclick="deletecancel()">Ne pas supprimer</button>
+</div>
+
+<div class="deleteoffre deleteform">
+    <p>Êtes vous sûr(e) de vouloir supprimer cette offre ?</p>
+    <form action="#" method="POST" name="delete">
+        <button>Supprimer</button>
+        <input type="hidden" name="delete_offre[id]" value="" class="deleteoffreinput">
+    </form>
+    <button onclick="deletecancel()">Ne pas supprimer</button>
+</div>
+
+<div class="deletemessage deleteform">
+    <p>Êtes vous sûr(e) de vouloir supprimer ce message ?</p>
+    <form action="#" method="POST" name="delete">
+        <button>Supprimer</button>
+        <input type="hidden" name="delete_message[id]" value="" class="deletemessageinput">
+    </form>
+    <button onclick="deletecancel()">Ne pas supprimer</button>
+</div>
 
 <section class="menu">
     <div class="menubutton" onclick="affiche(0)">Présentation</div>
@@ -153,10 +201,8 @@ require ('..\require_popup.php');
             <td style='width: 25%;'>
                 <form action="#" method="POST" name="delete">
                     <button>Modifier</button>
-                    <button>Supprimer</button>
-                    <input type="hidden" name="delete_partenaire[id]" value="<?=$element['Id_Partenaire'] ?>">
-                    <input type="hidden" name="page" value="1">
                 </form>
+                <button onclick="deletepartenaire(<?=$element['Id_Partenaire'] ?>);">Supprimer</button>
             </td>
         </tr>
         
@@ -201,9 +247,8 @@ require ('..\require_popup.php');
             <td style='width: 15%;'>
                 <form action="#" method="POST" name="delete">
                     <button>Modifier</button>
-                    <button>Supprimer</button>
-                    <input type="hidden" name="delete_offre[id]" value="<?=$element['Id_Offre'] ?>">
                 </form>
+                <button onclick="deleteoffre(<?=$element['Id_Offre'] ?>);">Supprimer</button>
             </td>
         </tr>
         
@@ -247,10 +292,7 @@ require ('..\require_popup.php');
             <td style='width: 5%;'><?=$element['Nom_Offre']?></td>
             <td style='width: 5%;'><?=$element['Nom_Partenaire']?></td>
             <td style='width: 10%;'>
-                <form action="#" method="POST" name="delete">
-                    <button>Supprimer</button>
-                    <input type="hidden" name="delete_message[id]" value="<?=$element['Id_Message'] ?>">
-                </form>
+                <button onclick="deletemessage(<?=$element['Id_Message'] ?>);">Supprimer</button>
             </td>
         </tr>
         
@@ -299,6 +341,30 @@ require ('..\require_popup.php');
             margin: 1%;
             border-radius: 5px;
         }
+        .deleteform {
+            width: 40%;
+            border: 3px solid #000000;
+            border-radius: 5px;
+            margin: 0 20% 0 20%;
+            position: fixed;
+            z-index: 2;
+            padding: 10%;
+            background-color: #FFFFFF;
+            text-align: center;
+            font-size: 150%;
+            display: none;
+        }
+        .bg {
+            margin: -20% 0 0 -10%;
+            background-color: #DDDDDD;
+            opacity: 0.8;
+            position: fixed;
+            width: 200%;
+            height: 200%;
+            z-index: 1;
+            display: none;
+        }
+
     </style>
 
     <script>
@@ -313,4 +379,26 @@ require ('..\require_popup.php');
             buttons[id].setAttribute("style","border-color: black;")
         }
         affiche(0);
+
+        function deletepartenaire(id) {
+            document.getElementsByClassName("deletepartenaire")[0].setAttribute("style","display: block");
+            document.getElementsByClassName("bg")[0].setAttribute("style","display: block");
+            document.getElementsByClassName("deletepartenaireinput")[0].setAttribute("value",id);
+        }
+        function deleteoffre(id) {
+            document.getElementsByClassName("deleteoffre")[0].setAttribute("style","display: block");
+            document.getElementsByClassName("bg")[0].setAttribute("style","display: block");
+            document.getElementsByClassName("deleteoffreinput")[0].setAttribute("value",id);
+        }
+        function deletemessage(id) {
+            document.getElementsByClassName("deletemessage")[0].setAttribute("style","display: block");
+            document.getElementsByClassName("bg")[0].setAttribute("style","display: block");
+            document.getElementsByClassName("deletemessageinput")[0].setAttribute("value",id);
+        }
+        function deletecancel() {
+            document.getElementsByClassName("deletepartenaire")[0].setAttribute("style","display: none");
+            document.getElementsByClassName("deleteoffre")[0].setAttribute("style","display: none");
+            document.getElementsByClassName("deletemessage")[0].setAttribute("style","display: none");
+            document.getElementsByClassName("bg")[0].setAttribute("style","display: none");
+        }
     </script>
