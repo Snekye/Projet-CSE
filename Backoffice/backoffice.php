@@ -94,8 +94,6 @@ if (empty($_POST) === False) {
         }
     }
     //Update
-
-    $_POST = [];
 }
 
 require ('..\require_popup.php');
@@ -160,14 +158,14 @@ require ('..\require_popup.php');
             <td style='width: 10%;'><?=$liste_info['Email_Info_Accueil']?></td>
             <td style='width: 20%;'><?=$liste_info['Emplacement_Bureau_Info_Accueil']?></td>
             <td style='width: 10%;'><?=$liste_info['Titre_Info_Accueil']?></td>
-            <td style='width: 40%;'><?=$liste_info['Texte_Info_Accueil']?></td>
-            <td style='width: 10%'>
+            <td style='width: 25%;'><?=$liste_info['Texte_Info_Accueil']?></td>
+            <td style='width: 15%'>
                 <button>Modifier</button>
             </td>
         </tr>
     </tbody>
 
-</table>
+</table >
 
 </section>
 
@@ -195,9 +193,9 @@ require ('..\require_popup.php');
 
         <tr>
             <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
-            <td style='width: 40%;'><?=$element['Description_Partenaire']?></td>
+            <td style='width: 30%;'><?=$element['Description_Partenaire']?></td>
             <td style='width: 10%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
-            <td style='width: 20%;'><img src="<?=$element['Nom_Image']?>"></td>
+            <td style='width: 15%;'><img src="<?=$element['Nom_Image']?>"></td>
             <td style='width: 25%;'>
                 <form action="#" method="POST" name="delete">
                     <button>Modifier</button>
@@ -226,7 +224,7 @@ require ('..\require_popup.php');
             <th>Description</th>
             <th>Date de début</th>
             <th>Date de fin</th>
-            <th>Places minimum</th>
+            <th>Places</th>
             <th>Action</th>
         </tr>
     </thead>
@@ -240,7 +238,7 @@ require ('..\require_popup.php');
         <tr>
             <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
             <td style='width: 10%;'><?=$element['Nom_Offre']?></td>
-            <td style='width: 30%;'><?=$element['Description_Offre']?></td>
+            <td style='width: 20%;'><?=$element['Description_Offre']?></td>
             <td style='width: 10%;'><?=$element['Date_Debut_Offre']?></td>
             <td style='width: 10%;'><?=$element['Date_Fin_Offre']?></td>
             <td style='width: 5%;'><?=$element['Nombre_Place_Min_Offre']?></td>
@@ -285,13 +283,13 @@ require ('..\require_popup.php');
         foreach ($liste_messages as $element) { ?>
 
         <tr>
-            <td style='width: 10%;'><?=$element['Nom_Message']?></td>
-            <td style='width: 10%;'><?=$element['Prenom_Message']?></td>
+            <td style='width: 7.5%;'><?=$element['Nom_Message']?></td>
+            <td style='width: 7.5%;'><?=$element['Prenom_Message']?></td>
             <td style='width: 20%;'><?=$element['Email_Message']?></td>
-            <td style='width: 30%;'><?=$element['Contenu_Message']?></td>
-            <td style='width: 5%;'><?=$element['Nom_Offre']?></td>
-            <td style='width: 5%;'><?=$element['Nom_Partenaire']?></td>
-            <td style='width: 10%;'>
+            <td style='width: 25%;'><?=$element['Contenu_Message']?></td>
+            <td style='width: 7.5%;'><?=$element['Nom_Offre']?></td>
+            <td style='width: 7.5%;'><?=$element['Nom_Partenaire']?></td>
+            <td style='width: 15%;'>
                 <button onclick="deletemessage(<?=$element['Id_Message'] ?>);">Supprimer</button>
             </td>
         </tr>
@@ -301,104 +299,3 @@ require ('..\require_popup.php');
     </tbody>
 
 </section>
-
-    <style>
-        td, th {
-            border: 3px solid #DDDDDD;
-            border-radius: 5px;
-        }
-        td:hover, th:hover {
-            border: 3px solid black;
-        }
-        tr {
-            border: 3px solid black;
-        }
-        button {
-            font-size: 16px;
-        }
-        table {
-            padding: 0% 5%; font-size: 20px; text-align: center;
-        }
-        .partenaires img {
-            width: 30%;
-            padding: 2%;
-        }
-        h1 {
-            text-align: center;
-            font-size: 300%;
-        }
-        .menu {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-        .menu div {
-            border: 3px solid #DDDDDD;
-            padding: 2%;
-            width: 20%;
-            text-align: center;
-            font-size: 150%;
-            margin: 1%;
-            border-radius: 5px;
-        }
-        .deleteform {
-            width: 40%;
-            border: 3px solid #000000;
-            border-radius: 5px;
-            margin: 0 20% 0 20%;
-            position: fixed;
-            z-index: 2;
-            padding: 10%;
-            background-color: #FFFFFF;
-            text-align: center;
-            font-size: 150%;
-            display: none;
-        }
-        .bg {
-            margin: -20% 0 0 -10%;
-            background-color: #DDDDDD;
-            opacity: 0.8;
-            position: fixed;
-            width: 200%;
-            height: 200%;
-            z-index: 1;
-            display: none;
-        }
-
-    </style>
-
-    <script>
-        let sections = document.getElementsByClassName("affiche")
-        let buttons = document.getElementsByClassName("menubutton")
-        function affiche(id) {
-            for (i = 0; i < sections.length; i++) {
-                sections[i].setAttribute("style","display: none;")
-                buttons[i].setAttribute("style","border-color: light_grey;")
-            }
-            sections[id].setAttribute("style","display: block;")
-            buttons[id].setAttribute("style","border-color: black;")
-        }
-        affiche(0);
-
-        function deletepartenaire(id) {
-            document.getElementsByClassName("deletepartenaire")[0].setAttribute("style","display: block");
-            document.getElementsByClassName("bg")[0].setAttribute("style","display: block");
-            document.getElementsByClassName("deletepartenaireinput")[0].setAttribute("value",id);
-        }
-        function deleteoffre(id) {
-            document.getElementsByClassName("deleteoffre")[0].setAttribute("style","display: block");
-            document.getElementsByClassName("bg")[0].setAttribute("style","display: block");
-            document.getElementsByClassName("deleteoffreinput")[0].setAttribute("value",id);
-        }
-        function deletemessage(id) {
-            document.getElementsByClassName("deletemessage")[0].setAttribute("style","display: block");
-            document.getElementsByClassName("bg")[0].setAttribute("style","display: block");
-            document.getElementsByClassName("deletemessageinput")[0].setAttribute("value",id);
-        }
-        function deletecancel() {
-            document.getElementsByClassName("deletepartenaire")[0].setAttribute("style","display: none");
-            document.getElementsByClassName("deleteoffre")[0].setAttribute("style","display: none");
-            document.getElementsByClassName("deletemessage")[0].setAttribute("style","display: none");
-            document.getElementsByClassName("bg")[0].setAttribute("style","display: none");
-        }
-    </script>
