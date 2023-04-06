@@ -8,7 +8,6 @@ function affiche(id) {
     sections[id].setAttribute("style","display: block;")
     buttons[id].setAttribute("style","border-color: #1B3168;")
 }
-affiche(0);
 
 function deletepartenaire(id) {
     document.getElementsByClassName("deletepartenaire")[0].setAttribute("style","display: block");

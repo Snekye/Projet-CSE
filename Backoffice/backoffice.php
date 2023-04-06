@@ -1,3 +1,6 @@
+<link rel="stylesheet" href="backoffice.css">
+<script src="backoffice.js"></script>
+
 <?php
 require ('require_connexion_bdd.php');
 session_start();
@@ -299,3 +302,5 @@ require ('..\require_popup.php');
     </tbody>
 
 </section>
+
+<script>affiche(0);</script>
