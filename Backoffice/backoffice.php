@@ -25,7 +25,7 @@ $query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (me
 $query->execute();
 $liste_messages = $query->fetchAll();
 
-
+$page = 0;
 //Modification BDD
 if (empty($_POST) === False) {
 
@@ -34,6 +34,8 @@ if (empty($_POST) === False) {
     //Delete partenaire
     if (isset($_POST['delete_partenaire'])) {
         if (isset($_POST['delete_partenaire']['id'])) {
+            $page = 1;
+
             //Verification si il y a des offres associées au partenaire
             $query = $connexion->prepare("SELECT Id_Offre FROM offre LEFT JOIN partenaire ON (offre.Id_Partenaire = partenaire.Id_Partenaire) WHERE offre.Id_Partenaire = :id");
             $query->bindParam(':id', $_POST['delete_partenaire']['id']);
@@ -63,6 +65,8 @@ if (empty($_POST) === False) {
     //Delete offre
     if (isset($_POST['delete_offre'])) {
         if (isset($_POST['delete_offre']['id'])) {
+            $page = 2;
+
             //Verification si il y a des messages associés à l'offre
             $query = $connexion->prepare("SELECT Id_Message FROM message LEFT JOIN offre ON (message.Id_Offre = offre.Id_Offre) WHERE message.Id_Offre = :id");
             $query->bindParam(':id', $_POST['delete_offre']['id']);
@@ -86,6 +90,8 @@ if (empty($_POST) === False) {
     //Delete message
     if (isset($_POST['delete_message'])) {
         if (isset($_POST['delete_message']['id'])) {
+            $page = 3;
+
             try {
                 $query = $connexion->prepare('DELETE FROM message WHERE Id_Message = :id');
                 $query->bindParam(':id', $_POST['delete_message']['id']);
@@ -303,4 +309,4 @@ require ('..\require_popup.php');
 
 </section>
 
-<script>affiche(0);</script>
+<script>affiche(<?=$page?>);</script>
