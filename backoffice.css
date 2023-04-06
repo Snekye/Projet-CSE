@@ -1,0 +1,73 @@
+body {
+    overflow-y: scroll;
+}
+td, th {
+    border: 3px solid #D9D9D9;
+    padding: 0;
+}
+td {
+    background-color: white;
+}
+th {
+    background-color: #1B3168;
+    color: white;
+}
+table {
+    font-size: 20px;
+    text-align: center;
+    border-collapse: collapse;
+    border: 3px solid black;
+}
+button {
+    font-size: 16px;
+}
+.partenaires img {
+    width: 50%;
+    padding: 2%;
+}
+h1 {
+    text-align: center;
+    font-size: 300%;
+}
+.menu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.menu div {
+    border: 3px solid #DDDDDD;
+    padding: 2%;
+    width: 20%;
+    text-align: center;
+    font-size: 150%;
+    margin: 1%;
+    border-radius: 5px;
+    background-color: white;
+    transition: .3s;
+}
+.deleteform {
+    width: 40%;
+    border: 3px solid #000000;
+    border-radius: 5px;
+    margin: 0 20% 0 20%;
+    position: fixed;
+    z-index: 2;
+    padding: 10%;
+    background-color: #FFFFFF;
+    text-align: center;
+    font-size: 150%;
+    display: none;
+}
+.bg {
+    margin: -20% 0 0 -10%;
+    background-color: #DDDDDD;
+    opacity: 0.8;
+    position: fixed;
+    width: 200%;
+    height: 200%;
+    z-index: 1;
+    display: none;
+}
+.affiche {
+    display: none;
+}
