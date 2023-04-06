@@ -25,7 +25,6 @@ $query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (me
 $query->execute();
 $liste_messages = $query->fetchAll();
 
-$page = 0;
 //Modification BDD
 if (empty($_POST) === False) {
 
