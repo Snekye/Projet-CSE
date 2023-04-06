@@ -2,13 +2,31 @@
 
 require 'require_connexion_bdd.php';
 
-$query = $connexion->prepare("SELECT MAX(Id_Image) From image");
+
+$offreNom = [];
+$partenaireNom = [];
+
+$query = $connexion->prepare("SELECT Nom_Offre,Id_Offre FROM offre ");
 $query->execute();
 
-$imagePartenaire = $query->fetchAll();
+$offre = $query->fetchAll();
 
-//var_dump($imagePartenaire);
+$offreNom[] = "aucun";
+foreach ($offre as $element) {
+	$offreNom[] = $element['Nom_Offre'];
+};
 
+$query = $connexion->prepare("SELECT Nom_Partenaire,Id_Partenaire FROM partenaire ");
+$query->execute();
+
+$partenaire = $query->fetchAll();
+
+$partenaireNom[] = "aucun";
+foreach ($partenaire as $element) {
+	$partenaireNom[] = $element['Nom_Partenaire'];
+};
+
+$erreurs = [];
 
 if (empty($_POST) === false) {
 
@@ -16,37 +34,60 @@ if (empty($_POST) === false) {
 	
 	$expressionReguliere = '/[\d\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/';
 
-	if (empty($_POST['nomPartenaire']) === false) {
-		if (preg_match($expressionReguliere, $_POST['nomPartenaire'])) {
-			$erreurs['nomPartenaire'] = "Le nom du partenaire ne doit pas contenir de chiffres et de caractères spéciaux.";
+	if (empty($_POST['nomMessage']) === false) {
+		if (preg_match($expressionReguliere, $_POST['nomMessage'])) {
+			$erreurs['nomMessage'] = "Le nom ne doit pas contenir de chiffres et de caractères spéciaux.";
+		}else {
+			if (strlen($_POST['nomMessage']) > 100) {
+				$erreurs['nomMessage'] = 'Le nom ne doit pas dépasser 100 caractères.';
+			}
 		}
-	}else {
-        if (empty($_POST['nomPartenaire'])) {
-            $erreurs['nomPartenaire'] = 'Veuillez saisir un nom de partenaire.';
-        }
+	}
 
-    }
+	if (empty($_POST['prenomMessage']) === false) {
+		if (preg_match($expressionReguliere, $_POST['prenomMessage'])) {
+			$erreurs['prenomMessage'] = "Le Prénom ne doit pas contenir de chiffres et de caractères spéciaux.";
+		}else {
+			if (strlen($_POST['contenuMessage']) > 100) {
+				$erreurs['contenuMessage'] = 'Le prénom ne doit pas dépasser 100 caractères.';
+			}
+		}
+	}
 
-    if (empty($_POST['descriptionPartenaire'])) {
-		$erreurs['descriptionPartenaire'] = 'Veuillez saisir une description.';
+    if (empty($_POST['contenuMessage'])) {
+		$erreurs['contenuMessage'] = 'Veuillez saisir un message.';
 	} else {
-		if (strlen($_POST['descriptionPartenaire']) > 3000) {
-			$erreurs['descriptionPartenaire'] = 'La description ne doit pas dépasser 3000 caractères.';
+		if (strlen($_POST['contenuMessage']) > 3000) {
+			$erreurs['contenuMessage'] = 'Le message ne doit pas dépasser 3000 caractères.';
 		}
 	}
 
 
     if (empty($erreurs)) {
         try {
-
+			
             $requeteInsertion = $connexion->prepare('INSERT INTO message (Nom_Message, Prenom_Message, Email_Message, Contenu_Message, Id_Offre, Id_Partenaire) VALUES (:Nom_Message, :Prenom_Message, :Email_Message, :Contenu_Message, :Id_Offre, :Id_Partenaire)');
             $requeteInsertion->bindParam(':Nom_Message', $_POST['nomMessage']);
             $requeteInsertion->bindParam(':Prenom_Message', $_POST['prenomMessage']);
             $requeteInsertion->bindParam(':Email_Message', $_POST['emailMessage']);
 			$requeteInsertion->bindParam(':Contenu_Message', $_POST['contenuMessage']);
-            $requeteInsertion->bindParam(':Id_Offre', $_POST['nomOffre']); 
-            $requeteInsertion->bindParam(':Id_Partenaire', $_POST['nomPartenaire']);           
        
+			if (($_POST['nomOffre']) != $partenaireNom[] = "aucun") {
+			
+				$requeteInsertion->bindParam(':Id_Offre', $_POST['nomOffre']);
+			}else {
+				$_POST['nomOffre'] = null;
+				$requeteInsertion->bindParam(':Id_Offre', $_POST['nomOffre']);
+			}
+
+			if (($_POST['nomPartenaire']) != $partenaireNom[] = "aucun") {
+			
+				$requeteInsertion->bindParam(':Id_Partenaire', $_POST['nomPartenaire']);           
+			}else {
+				$_POST['nomPartenaire'] = null;
+				$requeteInsertion->bindParam(':Id_Partenaire', $_POST['nomPartenaire']);
+			}
+
             $requeteInsertion->execute();
 
             echo 'Votre demande a bien été prise en compte.';
@@ -88,7 +129,7 @@ if (empty($_POST) === false) {
         <div>
 			<label for="nomOffre">Offre</label>
 			<select name="nomOffre" id="nomOffre">
-				<?php foreach ($partenaireOffre as $valeur => $nom) { ?>
+				<?php foreach ($offreNom as $valeur => $nom) { ?>
 				<option <?php if (isset($_POST['nomOffre']) && $_POST['nomOffre'] === $valeur) { echo 'selected'; } ?> value="<?= $valeur ?>"><?= $nom ?></option>
 				<?php } ?>
 			</select>
@@ -98,7 +139,7 @@ if (empty($_POST) === false) {
         <div>
 			<label for="nomPartenaire">Partenaire</label>
 			<select name="nomPartenaire" id="nomPartenaire">
-				<?php foreach ($partenaireOffre as $valeur => $nom) { ?>
+				<?php foreach ($partenaireNom as $valeur => $nom) { ?>
 				<option <?php if (isset($_POST['nomPartenaire']) && $_POST['nomPartenaire'] === $valeur) { echo 'selected'; } ?> value="<?= $valeur ?>"><?= $nom ?></option>
 				<?php } ?>
 			</select>
