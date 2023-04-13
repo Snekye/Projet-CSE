@@ -54,6 +54,14 @@ if (empty($_POST) === false) {
 		}
 	}
 
+	if (empty($_POST['emailMessage'])) {
+		$erreurs['emailMessage'] = 'Veuillez saisir une adresse email.';
+	} else {
+		if (filter_var($_POST['emailMessage'], FILTER_VALIDATE_EMAIL) === false) {
+			$erreurs['emailMessage'] = 'Veuillez saisir une adresse email valide.';
+		}
+	}
+
     if (empty($_POST['contenuMessage'])) {
 		$erreurs['contenuMessage'] = 'Veuillez saisir un message.';
 	} else {
@@ -62,6 +70,8 @@ if (empty($_POST) === false) {
 		}
 	}
 
+//	var_dump(($_POST['nomPartenaire']) === $partenaireNom[] = "aucun");
+//	var_dump(($_POST['nomPartenaire']) != $partenaireNom[] = "aucun");
 
     if (empty($erreurs)) {
         try {
