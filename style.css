@@ -1,171 +1,96 @@
-/*========================GOOGLE POLICE ECRITURE=================  =======*/
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:400|Inter:700');
+:root{
+    --noir: #000;
+    --maron: #B6A886;
+    --griscse: #D9D9D9;
+    --bleucarouselle: #DFE1E7;
+    --gris-de-base-croix: #aaaaaa;
+}
 
-*{
-    padding: 0;
-    margin: 0;
-    text-decoration: none;
-    list-style: none;
+*,::before,::after{
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
-
-
-body{
-    font-family: Montserrat;
-    font-family: Inter;
-    
-}
-
-
-nav{
-    float: none;
-    height: 50px;
-    padding-left: 38%;
-    background: #2e3b64;
-    display: flex;
-    
-}
-
-
-
-.marge{
-    padding-top: 50px;
-    background-color: #efedee;
-    
-}
-
-/*========================HEADER=================  =======*/
-
-
-header{
-    z-index: 1;
-}
-
-
-
-
-.nav_logo::after{
-    content: '';
-    
-}
-
-.nav_list{
-    position: relative;
-    overflow: hidden;
-}
-
-.nav_item{
-    display: flex;
-    float: inline-start;
-    margin-right: 2vh;
-    justify-content: space-evenly;
-}
-
-
-
-
-nav ul li a{
-    color: white;
-    font-size: 3vh;
-    text-align: center;
-    padding: 2vh 1vh;
-    text-decoration: none;
-}
-
-.nav_item:hover{
-    background: #b6a786;
-    transition: .5s;
-}
-
-
-
-/*========================SIDE BAR========================*/
-
-
-.sidebar{
-   
-    margin-left: 16%;
-    width: auto;
-    top: 0;
-    position: absolute;
-    display: flex;
-    text-align: center;
-}
-
-.menu{
-    width: 32vh;
-    background-color: white;
-}
-
-.menu a{
-    text-decoration: none;
-    color: #b6a786;
-}
-
-
-.nav_logo{
-    height: 52%;
-    background-color: white;
-    font-weight: bold;
-    display: flex;
-     
-    
-}
-
-
-    
-
-
-/*========================Accueil========================*/
-
-.home{
+.texte{
+    border: 1px solid black;
     width: 50%;
-    margin-left: 35%;
-    padding-top: 4%;
+    background-color: var(--griscse);
 }
 
-
-.presentation {
-    right: 0;
-    padding   : 1em 1em;
-    position  : relative;
-    background-color: #D9D9D9;
+/* Billet */
+.carte{
+    font-family: "Poppins";
+    width: 330px;
+    min-height: 530px;
+    /* pour centrer */
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /* dispositions */
+    display: grid;
+    grid-template: repeat(2, 100px) 50px repeat(2,100px) 80px/repeat(3,110px);
+    border-radius: 5px;
 }
 
-
-.sous_titre{
-    color: #2e3b64;
+.carteImage{
+    /* debut rangée/ debut colone /fin rangée /fin colone */
+    grid-area: 1/1/3/4;
+    background-color: transparent !important;
+}
+.carteImage img{
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3/2;
+    object-fit: contain;
+    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-.texte_presentation{
-    padding-top: 3%;
+.carteTitre{
+    grid-area: 3/1/4/4;
+    font-size: 24px;
+    font-weight: 500;
+    padding: 20px;
+}
+.carteTitre hr{
+    opacity: 0.8;
 }
 
-.affiche_offre{
-    padding-top: 3%;
-    font: Montserrat;
-    font-weight: 400;
-    size: 30px;
-    line-height: 36.57px;
-    font-size: xx-large;
+.tab{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-top: 10px;
 }
 
-.annonce{
-    background-color: #efedee;
+.carteIcone{
+    width: 24px;
+    margin-right: 10px;
+}
+.carteIcone span{
+    font-weight: 600;
 }
 
-
-
-/*========================FOOTER========================*/
-
-footer{
-    margin-top: 5%;
-    position:absolute;
-    bottom:0;  
-    width:100%;
-    height:100px;
-
-    background: #b6a786;
+.carteInfo{
+    grid-area: 5/1/6/4;
+    padding: 5px 25px;
+    font-weight: 14;
+    text-align: justify;
 }
 
+.carteBtn{
+    grid-area: 6/1/7/4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.carteBtn button{
+    display: block;
+    width: 200px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
