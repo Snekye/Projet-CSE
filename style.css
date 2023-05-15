@@ -18,20 +18,29 @@
     background-color: var(--griscse);
 }
 
+.conteneurBillet{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
 /* Billet */
 .carte{
     font-family: "Poppins";
     width: 330px;
     min-height: 530px;
+    margin: 5% 2% 0%;
     /* pour centrer */
-    position: absolute;
+    /* position: absolute;
     top: 40%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
     /* dispositions */
     display: grid;
     grid-template: repeat(2, 100px) 50px repeat(2,100px) 80px/repeat(3,110px);
     border-radius: 5px;
+    text-align: center;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .carteImage{
@@ -93,4 +102,24 @@
     justify-content: center;
     align-items: center;
     border-radius: 5px;
+}
+
+@media (max-width:900px) {
+    .texte{
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+@media (max-width:330px) {
+    .carte{
+        width: 100%;
+        grid-template: repeat(2, 100px) 50px repeat(2,100px) 80px/repeat(3,100px);
+    }
+}
+
+@media (min-width:1890px) {
+    p{
+        font-size: 45px;
+    }
 }
