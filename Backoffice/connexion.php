@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="connexion.css">
+<link rel="stylesheet" href="../font/font.css">
 <?php
 require ('require_connexion_bdd.php');
 session_start();
@@ -30,7 +32,7 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
             header("refresh:3;url=./backoffice.php");
 
             if (isset($_POST['remember'])) {
-                setcookie("login",$_POST['login'],time()+(60*60*24*7)); //7j
+                setcookie("login",$_POST['login'],time()+(60*60*24*28)); //28j
             }
             else {
                 setcookie("login","",time()-10000); //Delete
@@ -51,21 +53,28 @@ require('..\require_popup.php');
 </head>
 
 <body>
-    <h1>Connexion</h1>
+    <section>
+        <h1>Espace Administrateur</h1>
 
-    <form action="#" method="POST">
+        <form action="#" method="POST">
 
-        <label for="login">Login :</label>
-        <input id="login" type="text" name="login" value="<?=isset($_POST['login']) ? $_POST['login'] : (isset($_COOKIE['login']) ? $_COOKIE['login'] : null) //Post > Cookie > Null ?>"><br>
+            <label for="login">Identifiant : </label>
+            <input id="login" type="text" name="login" value="<?=isset($_POST['login']) ? $_POST['login'] : (isset($_COOKIE['login']) ? $_COOKIE['login'] : null) //Post > Cookie > Null ?>"><br>
 
-        <label for="password">Mot de passe :</label>
-        <input id="password" type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : null ?>"><br>
+            <label for="password">Mot de passe :</label>
+            <input id="password" type="password" name="password" value="<?= isset($_POST['password']) ? $_POST['password'] : null ?>"><br>
 
-        <label for="remember">Se rappeler de moi</label>
-        <input id="remember" type="checkbox" name="remember" <?=isset($_POST['login']) ? (isset($_POST['remember']) ? "checked" : "unchecked") : (isset($_COOKIE['login']) ? "checked" : "unchecked") //Post > Cookie ?>><br>
+            <label for="remember">Se rappeler de moi</label>
+            <input id="remember" type="checkbox" name="remember" <?=isset($_POST['login']) ? (isset($_POST['remember']) ? "checked" : "unchecked") : (isset($_COOKIE['login']) ? "checked" : "unchecked") //Post > Cookie ?>><br>
 
-        <button>Connexion</button>
-
-    </form>
-
+            <button>Connexion</button>
+        
+        </form>
+    </section>
 </body>
+
+<script>
+    if ( window.history.replaceState ) {
+window.history.replaceState( null, null, window.location.href );
+}
+</script>

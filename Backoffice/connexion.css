@@ -1,0 +1,30 @@
+* {
+    font-family: Montserrat;
+    text-align: center;
+}
+section {
+    width: 50%;
+    margin: 0% 0 0 25%;
+    border: 4px solid #1B3168;
+    border-radius: 3% / 8%;
+}
+h1 {
+    font-size: 250%;
+}
+label, input, button {
+    font-size: 150%;
+}
+input {
+    margin-bottom: 3%;
+}
+button {
+    border: 4px solid #1B3168;
+    border-radius: 10% / 30%;
+    background-color: white;
+    padding: 1% 2%;
+}
+button:hover {
+    transition: .3s;
+    background-color: #1B3168;
+    color: white;
+}

@@ -38,6 +38,5 @@ if (!empty($_POST["deconnexion"])) {
         transition: .3s;
         background-color: #1B3168;
         color: white;
-        transform: scale(1.05);
     }
 </style>
