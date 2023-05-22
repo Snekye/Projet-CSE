@@ -16,8 +16,9 @@ if (isset($message)) { ?>
     text-align: center;
     background-color: #FFFFFF;
     transition: .5s;
-    border-radius: 5px;
+    border-radius: 2% / 20%;
     top: 80%;
+    font-size: 130%;
 }
 .popuptext {
     padding: 1%;
