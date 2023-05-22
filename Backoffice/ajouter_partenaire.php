@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="projet.css">
 <?php
 
 require 'require_connexion_bdd.php';
@@ -35,6 +36,10 @@ if (empty($_POST) === false) {
 		}
 	}
 
+	if (empty($_POST['lienPartenaire'])){
+		$erreurs['lienPartenaire'] = 'Veuillez saisir le lien du partenaire';
+	}
+
 
     if (empty($erreurs)) {
         try {
@@ -59,8 +64,9 @@ if (empty($_POST) === false) {
 }
 
 ?>
-
-<form action="#" method="POST">
+<div class= "container">
+<h3 class="titre_form">Ajoutez une partenaire</h3>
+<form action="#" method="POST" class="contact-form">
 		
 		<div>
 			<label for="nomPartenaire">Nom du partenaire</label>
@@ -90,3 +96,4 @@ if (empty($_POST) === false) {
 			<input type="submit" name="validation">
 		</div>
 </form>
+</div>
