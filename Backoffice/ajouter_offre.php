@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="projet.css">
 <?php
 
 require 'require_connexion_bdd.php';
@@ -17,7 +18,7 @@ foreach ($partenaire as $element) {
 
 $erreurs = [];
 
-var_dump($erreurs);
+//var_dump($erreurs);
 
 if (empty($_POST) === false) {
 
@@ -67,7 +68,6 @@ if (empty($_POST) === false) {
 //		$erreurs['partenaireOffre'] = 'Veuillez préciser un partenaire valide.';
 //	}
 
-
     if (empty($erreurs)) {
         try {
             $requeteInsertion = $connexion->prepare('INSERT INTO Offre (Nom_Offre, Description_Offre, Date_Debut_Offre, Date_Fin_Offre, Nombre_Place_Min_Offre, Id_Partenaire) VALUES (:Nom_Offre, :Description_Offre, :Date_Debut_Offre, :Date_Fin_Offre, :Nombre_Place_Min_Offre, :Partenaire_Offre)');
@@ -90,8 +90,9 @@ if (empty($_POST) === false) {
 }
 
 ?>
-
-	<form action="#" method="POST">
+<div class= "container">
+	<h3 class="titre_form">Ajoutez une offre</h3>
+	<form action="#" method="POST" class="contact-form">
 		
 		<div>
 			<label for="nomOffre">Nom de l'offre</label>
@@ -161,5 +162,6 @@ if (empty($_POST) === false) {
 			<input type="submit" name="validation">
 		</div>
 	</form>
+</div>
 </body>
 </html>
