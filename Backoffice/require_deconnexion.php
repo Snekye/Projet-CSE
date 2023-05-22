@@ -32,7 +32,7 @@ if (!empty($_POST["deconnexion"])) {
         background-color: white;
         border: 3px solid #1B3168;
         border-radius: 6% / 30%;
-        font-family: Montserrat;
+        font-family: Inter;
     }
     .decobutton:hover {
         transition: .3s;
