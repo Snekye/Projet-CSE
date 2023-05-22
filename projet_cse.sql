@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mar. 21 mars 2023 à 14:49
+-- Généré le : lun. 22 mai 2023 à 15:37
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -55,9 +55,9 @@ CREATE TABLE `image` (
 --
 
 INSERT INTO `image` (`Id_Image`, `Nom_Image`) VALUES
-(1, 'logo_chanel'),
-(2, 'logo_peugeot'),
-(3, 'logo_pathé_Gaumont');
+(1, 'https://www.1min30.com/wp-content/uploads/2017/08/Chanel-logo-1.jpg'),
+(2, 'https://upload.wikimedia.org/wikipedia/fr/thumb/9/9d/Peugeot_2021_Logo.svg/750px-Peugeot_2021_Logo.svg.png?20210226094449'),
+(3, 'https://cdn2.telephone.city/webp/200/pathe.png');
 
 -- --------------------------------------------------------
 
@@ -79,7 +79,7 @@ CREATE TABLE `info_accueil` (
 --
 
 INSERT INTO `info_accueil` (`Id_Info_Accueil`, `Num_Tel_Info_Accueil`, `Email_Info_Accueil`, `Emplacement_Bureau_Info_Accueil`, `Titre_Info_Accueil`, `Texte_Info_Accueil`) VALUES
-(1, 102030405, 'emailtest@gmail.com', 'emplacementtest', 'titretest', 'textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest textetest ');
+(1, 33030303, 'cse@lyceestvincent.fr', 'Bureau du CSE [1er étage bâtiment St-Vincent]', 'CSE Lycée Saint-Vincent', 'Nous vous souhaitons la bienvenue sur le site du comité social et économique du lycée Saint-Vincent à Senlis.<br>Découvrez l\'<a href=\"https://dgranit.lyceestvincent.fr\" target=\"_blank\">équipe</a> et le <a href=\"https://abrunet.lyceestvincent.fr\" target=\"_blank\">rôle</a> et missions de votre CSE.');
 
 -- --------------------------------------------------------
 
@@ -102,16 +102,11 @@ CREATE TABLE `message` (
 --
 
 INSERT INTO `message` (`Id_Message`, `Nom_Message`, `Prenom_Message`, `Email_Message`, `Contenu_Message`, `Id_Offre`, `Id_Partenaire`) VALUES
-(1, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite me procurer du chocolat afin de réaliser une collecte et l\'offrir pour les fêtes de pâques  ', NULL, NULL),
-(2, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite me procurer du chocolat afin de réaliser une collecte et l\'offrir pour les fêtes de pâques  ', NULL, NULL),
-(3, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite me procurer la sélection de parfum de l\'enseigne nocibé en profitant de la remise de 20% ', NULL, NULL),
-(4, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 3 grand sapin et 1 petit', NULL, NULL),
-(5, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis intéressé par l\'offre proposer sur les sapin de noël, je souhaiterais fait l\'acquisition de 2 grand sapin et 2 petit', NULL, NULL),
-(6, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
-(7, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, Je suis interressé par l\'offre proposé sur les chocolat de noël  ', NULL, NULL),
-(8, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, je souhaite ', NULL, NULL),
-(9, 'Brunet', 'Alexandre', 'alexandre.brunet@gmail.com', 'Bonjour, j\'ai constaté la réduction sur la révision pour ma voiture ', NULL, NULL),
-(10, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Bonjour, j\'ai constaté la réduction sur la révision pour mon véhicule ', NULL, NULL);
+(5, 'Granit', 'Dimitri', 'dimitri.granit@gmail.com', 'Waouh, ces offres promotionnelles ont attiré mon attention ! J\'ai hâte de profiter de super affaires et faire des économies sur mes produits préférés. Je suis partant !', NULL, NULL),
+(6, 'Favernay', 'Marcus', 'marcus.favernay@gmail.com', 'Je suis toujours à la recherche de bonnes affaires, et ces offres promotionnelles ont vraiment captivé mon intérêt. Je compte bien en profiter et faire de belles économies !', 2, NULL),
+(7, 'Rossi', 'Antoine', 'antoine.rossi@gmail.com', 'Ces offres promotionnelles sont vraiment alléchantes ! Je suis vraiment tenté de les découvrir et de profiter de remises exceptionnelles. Je suis très intéressée !', NULL, NULL),
+(8, 'Zarb', 'Tom', 'tom.zarb@gmail.com', 'Les offres promotionnelles que j\'ai vues sont incroyables ! Je ne peux pas résister à l\'idée d\'en profiter et de me faire plaisir sans me ruiner. Je suis totalement séduit !', NULL, NULL),
+(9, 'Brunet', 'Alexandre', 'alexandre.brunet@gmail.com', 'Je suis à la recherche de bonnes affaires et ces offres promotionnelles sont exactement ce que je cherchais. Je suis vraiment intéressé par les remises et les avantages proposés. Ça ne se refuse pas !', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -124,7 +119,7 @@ CREATE TABLE `offre` (
   `Nom_Offre` varchar(255) NOT NULL,
   `Description_Offre` varchar(3000) NOT NULL,
   `Date_Debut_Offre` date NOT NULL,
-  `Date_Fin_Offre` date NOT NULL,
+  `Date_Fin_Offre` date DEFAULT NULL,
   `Nombre_Place_Min_Offre` int(11) NOT NULL,
   `Id_Partenaire` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -134,16 +129,12 @@ CREATE TABLE `offre` (
 --
 
 INSERT INTO `offre` (`Id_Offre`, `Nom_Offre`, `Description_Offre`, `Date_Debut_Offre`, `Date_Fin_Offre`, `Nombre_Place_Min_Offre`, `Id_Partenaire`) VALUES
-(1, 'Sapin de noël', 'grand Sapin de noël -25% ', '2023-03-15', '2024-03-03', 20, 3),
-(2, 'Chocolat', 'Offre promotionnel sur le chocolat -5%', '2022-11-17', '2023-01-18', 150, 8),
-(3, 'Révision véhicule', 'promotion sur la révision de véhicule -15%', '2023-03-05', '2023-03-22', 1, 7),
-(4, 'Révision véhicule Peugeot', 'promotion sur la révision de véhicule -15%', '2023-02-06', '2023-05-10', 2, 3),
-(5, 'Révision véhicule Renault', 'promotion sur la révision de véhicule -40%', '2023-02-06', '2023-05-10', 1, 7),
-(6, 'Révision véhicule par Renault', 'promotion sur la révision de véhicule -25%', '2023-03-05', '2023-03-22', 1, 7),
-(7, 'Vente place cinéma Pathé Gaumont', 'promotion sur la vente de place de cinéma de 10%', '2023-03-09', '2023-03-01', 20, 2),
-(8, 'Vente place cinéma Pathé Gaumont', 'promotion sur la vente de place de cinéma de 20%', '2023-03-09', '2023-03-01', 20, 2),
-(9, 'Vente de parfum', 'promotion sur la vente de parfum de chanel', '2023-02-07', '2023-06-21', 7, 1),
-(10, 'promotion produit', '-20% sur toute la boutique chanel', '2023-02-07', '2023-06-21', 7, 1);
+(1, 'Promo Voyage Ensoleillé', 'Profitez de notre promotion voyage ensoleillé et économisez sur vos prochaines vacances. Des destinations de rêve à des prix imbattables. Ne manquez pas cette occasion de vous évader !', '2023-03-15', '2024-03-03', 20, 3),
+(2, 'Offre Tech Futuriste', 'Plongez dans le futur avec notre offre tech futuriste. Des réductions incroyables sur les dernières innovations technologiques. Soyez à la pointe de la technologie sans vous ruiner !', '2022-11-17', '2023-01-18', 150, 8),
+(4, 'Promo Gourmande', 'Laissez-vous tenter par notre promo gourmande avec des remises alléchantes sur une sélection de produits gastronomiques. Un festin pour vos papilles à prix réduit.', '2023-02-06', '2023-05-10', 2, 3),
+(6, 'Super Soldes Extrêmes', 'Profitez de prix exceptionnels sur une large gamme de produits !', '2023-03-05', '2023-03-22', 1, 7),
+(7, 'Super soldes', 'Des remises allant jusqu\'à 70% sur une large gamme d\'articles. Préparez-vous à faire de bonnes affaires incroyables !', '2023-03-09', NULL, 20, 2),
+(8, 'Promo Bien-être Relaxant', 'Accordez-vous une pause détente avec notre promo bien-être relaxant. Des offres spéciales sur les soins du corps, les massages et les produits de relaxation. Offrez-vous un moment de pure sérénité à prix réduit.', '2023-03-09', '2023-03-01', 20, 2);
 
 -- --------------------------------------------------------
 
@@ -175,13 +166,12 @@ CREATE TABLE `partenaire` (
 --
 
 INSERT INTO `partenaire` (`Id_Partenaire`, `Nom_Partenaire`, `Description_Partenaire`, `Lien_Partenaire`, `Id_Image`) VALUES
-(1, 'Chanel', 'Découvrez les remise sur les parfums de la marque chanel', 'https://www.chanel.com/fr/parfums/', 1),
-(2, 'Pathe Gaumont', 'Offre exeptionnelles sur vos place de cinénma', 'https://www.pathe.fr/', 3),
-(3, 'Peugeot', 'offre exeptionnelles de votre révision de véhicule', 'https://www.peugeot.fr/', 2),
-(5, 'parc asterix', 'offre exptionnelles sur vos place du parc asterix', 'https://www.parcasterix.fr/', 3),
-(7, 'renault', 'Offre expeptionnelles', 'https://www.renault.fr/', 1),
-(8, 'Asus rog', 'offre exceptionnelles sur les produit de asus rog ', 'https://www.asus.com/', 2),
-(9, 'MSI', 'offre exeptionnelles sur les produit de la marque MSI', 'https://fr-store.msi.com/', 1);
+(1, 'NovusTech Solutions', 'Innovating the Future, Today!', 'https://www.chanel.com/fr/parfums/', 1),
+(2, 'ÉcoVie Santé', 'Votre bien-être, notre priorité écologique.', 'https://www.pathe.fr/', 3),
+(3, 'ProFit Gym', 'Unlock Your Potential, Embrace the Power Within!', 'https://www.peugeot.fr/', 2),
+(5, 'AstraSoft Technologies', 'Shaping a Stellar Digital Universe.', 'https://www.parcasterix.fr/', 3),
+(7, 'DreamWorks Events', 'Turning Dreams into Unforgettable Moments.', 'https://www.renault.fr/', 1),
+(8, 'Artisanal Bliss Interiors', 'Bringing Harmony and Beauty into Every Space.', 'https://www.asus.com/', 2);
 
 -- --------------------------------------------------------
 
@@ -204,7 +194,7 @@ CREATE TABLE `utilisateur` (
 
 INSERT INTO `utilisateur` (`Id_Utilisateur`, `Nom_Utilisateur`, `Prenom_Utilisateur`, `Email_Utilisateur`, `Password_Utilisateur`, `Id_Droit`) VALUES
 (1, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1),
-(2, 'Noël', 'Marie', 'marie.noël@lyceestvincent.com', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1);
+(2, 'Noël', 'Marie', 'marie.noël@lyceestvincent.fr', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1);
 
 --
 -- Index pour les tables déchargées
@@ -291,19 +281,19 @@ ALTER TABLE `info_accueil`
 -- AUTO_INCREMENT pour la table `message`
 --
 ALTER TABLE `message`
-  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_Message` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `offre`
 --
 ALTER TABLE `offre`
-  MODIFY `Id_Offre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `Id_Offre` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT pour la table `partenaire`
 --
 ALTER TABLE `partenaire`
-  MODIFY `Id_Partenaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id_Partenaire` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
