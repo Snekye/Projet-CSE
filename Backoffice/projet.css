@@ -21,7 +21,7 @@
 }
 
 .container{
-    max-width: 960px;
+    max-width: 22rem;
     margin: auto;
     width: 100%;
     grid-template-columns: repeat(2, 1fr);
@@ -29,7 +29,6 @@
     background: #363953;
     box-shadow: 0 0 1rem hsla(0, 0, 0s, 16%);
     border-radius: 0.5rem;
-    overflow: hidden;
 }
 
 .container{
