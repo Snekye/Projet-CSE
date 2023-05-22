@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="../font/font.css">
 <link rel="stylesheet" href="backoffice.css">
 <script src="backoffice.js"></script>
 
@@ -24,6 +25,10 @@ $liste_offres = $query->fetchAll();
 $query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (message.Id_Partenaire = partenaire.Id_Partenaire) LEFT JOIN offre ON (message.Id_Offre = offre.Id_Offre);");
 $query->execute();
 $liste_messages = $query->fetchAll();
+
+$query = $connexion->prepare("SELECT Id_Utilisateur, Nom_Utilisateur, Prenom_Utilisateur, Email_Utilisateur FROM utilisateur");
+$query->execute();
+$liste_utilisateurs = $query->fetchAll();
 
 //Modification BDD
 if (empty($_POST) === False) {
@@ -141,6 +146,7 @@ require ('..\require_popup.php');
     <div class="menubutton" onclick="affiche(1)">Partenaires</div>
     <div class="menubutton" onclick="affiche(2)">Offres</div>
     <div class="menubutton" onclick="affiche(3)">Messagerie</div>
+    <div class="menubutton" onclick="affiche(4)">Utilisateurs</div>
 </section>
 
 <section class="presentation affiche">
@@ -202,9 +208,9 @@ require ('..\require_popup.php');
         <tr>
             <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
             <td style='width: 30%;'><?=$element['Description_Partenaire']?></td>
-            <td style='width: 10%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
+            <td style='width: 15%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
             <td style='width: 15%;'><img src="<?=$element['Nom_Image']?>"></td>
-            <td style='width: 25%;'>
+            <td style='width: 20%;'>
                 <form action="#" method="POST" name="delete">
                     <button>Modifier</button>
                 </form>
@@ -271,6 +277,7 @@ require ('..\require_popup.php');
 <h1>Messagerie</h1>
 
 <table>
+    
 
     <thead>
         <tr>
@@ -306,6 +313,46 @@ require ('..\require_popup.php');
 
     </tbody>
 
+    </table>
+
 </section>
+
+<section class="utilisateurs affiche">
+
+<h1>Utilisateurs</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+        <?php 
+            
+            foreach ($liste_utilisateurs as $element) { ?>
+
+            <tr>
+                <td style='width: 20%;'><?=$element['Nom_Utilisateur']?></td>
+                <td style='width: 20%;'><?=$element['Prenom_Utilisateur']?></td>
+                <td style='width: 60%;'><?=$element['Email_Utilisateur']?></td>
+                <td style='width: 20%;'>
+                    <form action="#" method="POST" name="delete">
+                        <button>Modifier</button>
+                    </form>
+                    <button onclick="deleteutilisateur(<?=$element['Id_Utilisateur'] ?>);">Supprimer</button></td>
+            </tr>
+
+            <?php } ?>
+        </tbody>
+    </table>
+
+</section>
+
 
 <script>affiche(<?=$page?>);</script>
