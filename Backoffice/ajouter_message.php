@@ -1,7 +1,7 @@
+<link rel="stylesheet" href="projet.css">
 <?php
 
 require 'require_connexion_bdd.php';
-
 
 $offreNom = [];
 $partenaireNom = [];
@@ -48,8 +48,8 @@ if (empty($_POST) === false) {
 		if (preg_match($expressionReguliere, $_POST['prenomMessage'])) {
 			$erreurs['prenomMessage'] = "Le Prénom ne doit pas contenir de chiffres et de caractères spéciaux.";
 		}else {
-			if (strlen($_POST['contenuMessage']) > 100) {
-				$erreurs['contenuMessage'] = 'Le prénom ne doit pas dépasser 100 caractères.';
+			if (strlen($_POST['prenomMessage']) > 100) {
+				$erreurs['prenomMessage'] = 'Le prénom ne doit pas dépasser 100 caractères.';
 			}
 		}
 	}
@@ -108,8 +108,9 @@ if (empty($_POST) === false) {
 }
 
 ?>
-
-<form action="#" method="POST">
+<div class= "container">
+	<h3 class="titre_form">Contactez-nous</h3>
+		<form action="#" method="POST" class="contact-form">
 		
 		<div>
 			<label for="nomMessage">Nom</label>
@@ -156,7 +157,13 @@ if (empty($_POST) === false) {
 			<?= isset($erreurs['nomPartenaire']) ? $erreurs['nomPartenaire'] : null; ?>
 		</div>
 
+
         <div>
-			<input type="submit" name="validation">
+			<input type="submit" name="validation" class="send-button">
+		</div>
+
+		<div class="map">
+			<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2606.8555700187317!2d2.5862228768817648!3d49.20329937637187!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e630cfeb73f31d%3A0x48c819ca44bf7503!2sLyc%C3%A9e%20Priv%C3%A9%20Saint%20Vincent%20de%20Senlis!5e0!3m2!1sfr!2sfr!4v1682076006016!5m2!1sfr!2sfr" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 		</div>
 </form>
+</div>
