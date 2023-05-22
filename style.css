@@ -12,114 +12,174 @@
     padding: 0;
 }
 
-.texte{
-    border: 1px solid black;
-    width: 50%;
+a{
+    text-decoration: none;
+    color: blue;
+}
+
+
+.textePartenaire{
+    border-radius: 0 0 5px 0;
+    min-width: 50%;
+    max-width: 60%;
     background-color: var(--griscse);
 }
 
-.conteneurBillet{
+.contenaire{    
+    padding: 15px;
+    width: 80%;
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
 }
-/* Billet */
-.carte{
-    font-family: "Poppins";
-    width: 330px;
-    min-height: 530px;
-    margin: 5% 2% 0%;
-    /* pour centrer */
-    /* position: absolute;
-    top: 40%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-    /* dispositions */
-    display: grid;
-    grid-template: repeat(2, 100px) 50px repeat(2,100px) 80px/repeat(3,110px);
+
+.partenaire{
+    width: 15vw;
+    height: 35vh;
+    min-height: 220px;
+    margin: 1% auto;
     border-radius: 5px;
-    text-align: center;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
 }
 
-.carteImage{
-    /* debut rangée/ debut colone /fin rangée /fin colone */
-    grid-area: 1/1/3/4;
-    background-color: transparent !important;
+.logoPartenaire{
+    margin: 6% auto 0;
+    width: 90%;
+    height: 60%;
 }
-.carteImage img{
-    width: 100%;
-    height: 100%;
+.logoPartenaire img{
     aspect-ratio: 3/2;
+    width: 100%;
     object-fit: contain;
-    box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.5);
 }
 
-.carteTitre{
-    grid-area: 3/1/4/4;
-    font-size: 24px;
-    font-weight: 500;
-    padding: 20px;
+.titrePartenaire{
+    width: 90%;
+    height: 15%;
+    margin: 5% auto 0;
+    padding-top: 2%;
+    border-radius: 2px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
 }
-.carteTitre hr{
-    opacity: 0.8;
+.titrePartenaire:hover{
+    background-color: #aaaaaa;
 }
-
-.tab{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    margin-top: 10px;
-}
-
-.carteIcone{
-    width: 24px;
-    margin-right: 10px;
-}
-.carteIcone span{
-    font-weight: 600;
+.titrePartenaire h2{
+    text-align: center;
 }
 
-.carteInfo{
-    grid-area: 5/1/6/4;
-    padding: 5px 25px;
-    font-weight: 14;
-    text-align: justify;
-}
-
-.carteBtn{
-    grid-area: 6/1/7/4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.carteBtn button{
+.modalPartenaire.show{
     display: block;
-    width: 200px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+}
+
+#fermerModalPartenaire{
+    margin-left: auto;
+}
+#fermerModalPartenaire p{
+    font-size: 25px;
+    cursor: pointer;
+}
+#fermerModalPartenaire p:hover{
+    color: red;
+}
+
+.modalPartenaire{
+    display: none;
+    width: 70%;
+    height: 60vh;
     border-radius: 5px;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    margin: 5% auto;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+}
+.modalPartenaire .partenaire{
+    object-fit: contain;
+    width: 70%;
+    height: 25%;
+    min-height: 50px;
+    margin-bottom: 5%;
+    box-shadow: none;
+    display: flex;
+}
+.modalPartenaire .logoPartenaire{
+    width: 30%;
+    min-width: 60px;
+    height: 100%;
+    margin: 0 auto;
+    box-shadow: 0px 0px 0px;
+}
+.modalPartenaire .logoPartenaire img{
+    min-width: 60px;
+    min-height: 60px;
+    width: 100%;
+}
+.modalPartenaire .titrePartenaire2{
+    margin: 7% auto;
+    min-width: 16px;
 }
 
-@media (max-width:900px) {
-    .texte{
-        width: 100%;
-        margin: 0 auto;
-    }
+.conteneurPaginationPartenaire{
+    border: 1px solid red;
+    width: 40%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: fit-content;  
 }
 
-@media (max-width:330px) {
-    .carte{
-        width: 100%;
-        grid-template: repeat(2, 100px) 50px repeat(2,100px) 80px/repeat(3,100px);
-    }
+.pagePartenaire{
+    border: 3px solid blue;
+    padding: 5px 10px;
+}
+.pagePartenaire p{
+    color: blue;
+    cursor: pointer;
 }
 
-@media (min-width:1890px) {
+@media (min-width:2200px) {
     p{
-        font-size: 45px;
+        font-size: 35px;
     }
+}
+
+@media (max-width:888px) {
+    p{
+        font-size: 15px;
+    }
+
+    .textePartenaire{
+        max-width: 100%;
+    }
+
+    .partenaire{
+        min-width: fit-content;
+    }
+    .logoPartenaire{
+        width: 200px;
+    }
+    .titrePartenaire{
+        margin-top: 30px;
+    }
+
+    .modalPartenaire{
+        width: 90%;
+        height: 50vh;
+        margin-top: 15%;
+        min-height: 400px;
+    }
+
+    .modalPartenaire .partenaire{
+        height: fit-content;
+    }
+
 }
