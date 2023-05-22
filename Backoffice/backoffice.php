@@ -126,7 +126,7 @@ require ('..\require_popup.php');
 <div class="deleteoffre deleteform">
     <p>Êtes vous sûr(e) de vouloir supprimer cette offre ?</p>
     <form action="#" method="POST" name="delete">
-        <button>Supprimer</button>
+        <button>Supprimer </button>
         <input type="hidden" name="delete_offre[id]" value="" class="deleteoffreinput">
     </form>
     <button onclick="deletecancel()">Ne pas supprimer</button>
