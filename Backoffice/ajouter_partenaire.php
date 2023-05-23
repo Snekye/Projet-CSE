@@ -1,6 +1,6 @@
-<link rel="stylesheet" href="projet.css">
+<link rel="stylesheet" href="formulaire.css">
 <?php
-
+// !!! nouvelle requête pour insérer l'image dans la table image 
 require 'require_connexion_bdd.php';
 
 $query = $connexion->prepare("SELECT MAX(Id_Image) From image");
@@ -51,10 +51,12 @@ if (empty($_POST) === false) {
             $requeteInsertion->bindParam(':Nom_Partenaire', $_POST['nomPartenaire']);
             $requeteInsertion->bindParam(':Description_Partenaire', $_POST['descriptionPartenaire']);
             $requeteInsertion->bindParam(':Lien_Partenaire', $_POST['lienPartenaire']);
-			$requeteInsertion->bindParam(':Id_Image', $_POST['nomImagePartenaire']);          
-        //    $requeteInsertion->bindParam(':Id_Image', $imagePartenaire); 
-       
+		//	$requeteInsertion->bindParam(':Id_Image', $_POST['nomImagePartenaire']);          
+            $requeteInsertion->bindParam(':Id_Image', $imagePartenaire); 
+
             $requeteInsertion->execute();
+
+		//	$requeteInsertionImage = $connexion->prepare('INSERT INTO image')
 
             echo 'Votre demande a bien été prise en compte.';
         } catch (\Exception $exception) {
@@ -76,7 +78,7 @@ if (empty($_POST) === false) {
 
         <div>
 			<label for="descriptionPartenaire">Description du partenaire</label>
-			<textarea name="descriptionPartenaire"><?= isset($_POST['descriptionPartenaire']) ? $_POST['descriptionPartenaire'] : 'Votre description...'; ?></textarea>
+			<textarea name="descriptionPartenaire"><?= isset($_POST['descriptionPartenaire']) ? $_POST['descriptionPartenaire'] : ''; ?></textarea>
 			<?= isset($erreurs['descriptionPartenaire']) ? $erreurs['descriptionPartenaire'] : null; ?>
 		</div>
 
