@@ -3,12 +3,14 @@
 // !!! nouvelle requête pour insérer l'image dans la table image 
 require 'require_connexion_bdd.php';
 
-$query = $connexion->prepare("SELECT MAX(Id_Image) From image");
-$query->execute();
 
-$imagePartenaire = $query->fetchAll();
+
+//$imagePartenaire = 39;
+
+//$imagePartenaire =36;
 
 //var_dump($imagePartenaire);
+
 
 
 if (empty($_POST) === false) {
@@ -38,31 +40,60 @@ if (empty($_POST) === false) {
 
 	if (empty($_POST['lienPartenaire'])){
 		$erreurs['lienPartenaire'] = 'Veuillez saisir le lien du partenaire';
+	}else {
+		if(filter_var($_POST['lienPartenaire'], FILTER_VALIDATE_URL) === false){
+			$erreurs['lienPartenaire'] = 'Veuillez saisir un lien valide';
+		}
+
 	}
 
+	if (empty($_POST['nomImagePartenaire'])){
+		$erreurs['nomImagePartenaire'] = 'Veuillez saisir le lien d\'une image';
+	}else {
+		if(filter_var($_POST['nomImagePartenaire'], FILTER_VALIDATE_URL) === false){
+			$erreurs['nomImagePartenaire'] = 'Veuillez saisir un lien d\'image valide';
+		}
+
+	}
+
+	if (empty($erreurs)){
+		try {
+			$requeteInsertionImage = $connexion->prepare('INSERT INTO image (Nom_Image) VALUES(:Nom_Image)');
+			$requeteInsertionImage->bindParam(':Nom_Image',$_POST['nomImagePartenaire']);
+
+			$requeteInsertionImage->execute();
+			
+
+			$query = $connexion->prepare("SELECT MAX(Id_Image) From image");
+			$query->execute();
+
+			$imagePartenaire = $query->fetchColumn();
+
+
+		}catch (\Exception $exception) {
+			echo 'Erreur lors de l\'ajout de l\'image';
+			$erreurs['Lien_Image'] = 'erreur';
+	}
+}
 
     if (empty($erreurs)) {
         try {
-        //    $requeteInsertion = $connexion->prepare('INSERT INTO image (Nom_Image) VALUES (:Nom_Image)');
-        //    $requeteInsertion->bindParam(':Nom_Image', $_POST['nomImagePartenaire']);
-        //    $requeteInsertion->execute();
 
             $requeteInsertion = $connexion->prepare('INSERT INTO Partenaire (Nom_Partenaire, Description_Partenaire, Lien_Partenaire, Id_Image) VALUES (:Nom_Partenaire, :Description_Partenaire, :Lien_Partenaire, :Id_Image)');
             $requeteInsertion->bindParam(':Nom_Partenaire', $_POST['nomPartenaire']);
             $requeteInsertion->bindParam(':Description_Partenaire', $_POST['descriptionPartenaire']);
-            $requeteInsertion->bindParam(':Lien_Partenaire', $_POST['lienPartenaire']);
-		//	$requeteInsertion->bindParam(':Id_Image', $_POST['nomImagePartenaire']);          
+            $requeteInsertion->bindParam(':Lien_Partenaire', $_POST['lienPartenaire']);        
             $requeteInsertion->bindParam(':Id_Image', $imagePartenaire); 
 
             $requeteInsertion->execute();
-
-		//	$requeteInsertionImage = $connexion->prepare('INSERT INTO image')
-
+			
             echo 'Votre demande a bien été prise en compte.';
         } catch (\Exception $exception) {
             echo 'Erreur lors de l\'ajout du partenaire';
+			$erreurs['Nom_Image'] = 'erreur';
         }
     }
+	
 }
 
 ?>
@@ -95,7 +126,7 @@ if (empty($_POST) === false) {
 		</div>
 
         <div>
-			<input type="submit" name="validation">
+			<input type="submit" name="validation" class="send-button">
 		</div>
 </form>
 </div>
