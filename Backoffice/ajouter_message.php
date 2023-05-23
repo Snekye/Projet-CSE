@@ -1,4 +1,4 @@
-<link rel="stylesheet" href="projet.css">
+<link rel="stylesheet" href="formulaire.css">
 <?php
 
 require 'require_connexion_bdd.php';
@@ -133,7 +133,7 @@ if (empty($_POST) === false) {
         
         <div>
 			<label for="contenuMessage">Contenu</label>
-			<textarea name="contenuMessage"><?= isset($_POST['contenuMessage']) ? $_POST['contenuMessage'] : 'Votre contenu...'; ?></textarea>
+			<textarea name="contenuMessage"><?= isset($_POST['contenuMessage']) ? $_POST['contenuMessage'] : ''; ?></textarea>
 			<?= isset($erreurs['contenuMessage']) ? $erreurs['contenuMessage'] : null; ?>
 		</div>
 
