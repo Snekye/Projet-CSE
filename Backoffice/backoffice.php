@@ -10,27 +10,6 @@ session_start();
 //Deconnexion
 require("require_deconnexion.php");
 
-//Récupération BDD
-$query = $connexion->prepare("SELECT * FROM info_accueil");
-$query->execute();
-$liste_info = $query->fetchAll()[0];
-
-$query = $connexion->prepare("SELECT * FROM partenaire JOIN image ON partenaire.Id_Image = Image.Id_Image");
-$query->execute();
-$liste_partenaires = $query->fetchAll();
-
-$query = $connexion->prepare("SELECT * FROM offre LEFT JOIN partenaire ON (offre.Id_Partenaire = partenaire.Id_Partenaire)");
-$query->execute();
-$liste_offres = $query->fetchAll();
-
-$query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (message.Id_Partenaire = partenaire.Id_Partenaire) LEFT JOIN offre ON (message.Id_Offre = offre.Id_Offre);");
-$query->execute();
-$liste_messages = $query->fetchAll();
-
-$query = $connexion->prepare("SELECT Id_Utilisateur, Nom_Utilisateur, Prenom_Utilisateur, Email_Utilisateur FROM utilisateur");
-$query->execute();
-$liste_utilisateurs = $query->fetchAll();
-
 //Modification BDD
 if (empty($_POST) === False) {
 
@@ -107,8 +86,28 @@ if (empty($_POST) === False) {
             }
         }
     }
-    //Update
 }
+
+//Récupération BDD
+$query = $connexion->prepare("SELECT * FROM info_accueil");
+$query->execute();
+$liste_info = $query->fetchAll()[0];
+
+$query = $connexion->prepare("SELECT * FROM partenaire JOIN image ON partenaire.Id_Image = Image.Id_Image");
+$query->execute();
+$liste_partenaires = $query->fetchAll();
+
+$query = $connexion->prepare("SELECT * FROM offre LEFT JOIN partenaire ON (offre.Id_Partenaire = partenaire.Id_Partenaire)");
+$query->execute();
+$liste_offres = $query->fetchAll();
+
+$query = $connexion->prepare("SELECT * FROM  message LEFT JOIN partenaire ON (message.Id_Partenaire = partenaire.Id_Partenaire) LEFT JOIN offre ON (message.Id_Offre = offre.Id_Offre);");
+$query->execute();
+$liste_messages = $query->fetchAll();
+
+$query = $connexion->prepare("SELECT Id_Utilisateur, Nom_Utilisateur, Prenom_Utilisateur, Email_Utilisateur FROM utilisateur");
+$query->execute();
+$liste_utilisateurs = $query->fetchAll();
 
 require ('..\require_popup.php');
 ?>
@@ -382,7 +381,7 @@ require ('..\require_popup.php');
             }
         </style>
     <?php } ?>
-    
+
 </section>
 
 
