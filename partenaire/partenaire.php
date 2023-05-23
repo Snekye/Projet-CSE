@@ -1,4 +1,5 @@
 <?php
+include("connexion_bdd.php");
 include("pagination.php");
 
 // responsive
@@ -69,19 +70,13 @@ if($page>5){
             </div>
         </div>
         <div class="nbPaginationPartenaire">
-            <?php for($i=1;$i<=$nbr_de_pages;$i++)
-                echo('<div class="conteneurPaginationPartenaire">
+                <div class="conteneurPaginationPartenaire">
                     <div class="pagePartenaire">
-                        <p>');
-                        if($page!=$i){
-                        echo "<a href='?page=$i'>$i</a>&nbsp;";
-                        }else{
-                        echo "<a>$i;</a>&nbsp;";
-                        }
-                        echo('</p>
+                        <p>
+                        <a href=""></a>&nbsp;
+                        <a></a>&nbsp;</p>
                     </div>
-                </div>');
-            ?>
+                </div>
         </div>
     </section>
     <script src="main.js"></script>

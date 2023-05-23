@@ -1,8 +1,7 @@
 <?php
-include("connexion_bdd.php");
 
 //on récupére le nombre de partenaire
-$count=$connexion->prepare("select count(*) as cpt from partenaire");
+$count=$connexion->prepare("SELECT count(*) as cpt From partenaire");
 $count->setFetchMode(PDO::FETCH_ASSOC);
 $count->execute();
 $tcount=$count->fetchAll();
