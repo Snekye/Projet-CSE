@@ -79,8 +79,8 @@ foreach ($offreNbPlace as $element) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>page partenaire</title>
-    <link rel="stylesheet" href="style.css">
+    <title>CSE</title>
+    <link rel="stylesheet" href="billetterie.css">
 </head>
 <body>
     <section id="pageBilleterie">
@@ -109,31 +109,32 @@ foreach ($offreNbPlace as $element) {
                 </div>
                 <!-- icone -->
                 <div class="tab min">
-                    <img src="#" alt="nombre de place total" class="carteIcone">
-                    <span>
+                        <img src="img/horloge.png" alt="image pour le début de l'offre" class="carteIcone">
                         <!-- date début offre -->
+                        <p>début de l'offre</p>
                         <?php
                             echo $offreDateDebut[$i]['Date_Debut_Offre'];
                         ?>
                     </span>
                 </div>
-                <div class="tab pris">
-                    <img src="#" alt="nombre de place prise" class="carteIcone">
-                    <span>
-                        <!--date fin offre -->
-                        <?php
+                <div class="tab max">
+                    <!-- date fin offre -->
+                    <img src="img/sablier.png" alt="images pour la fin de l'offre" class="carteIcone">
+                    <p>Fin de l'offre</p>
+                    <?php
                             echo$offreDateFin[$i]['Date_Fin_Offre'];
                         ?>
                     </span>
                 </div>
-                <div class="tab restant">
-                    <img src="#" alt="nombre de place restante" class="carteIcone">
-                    <span>
-                        <!-- nombre de place min -->
-                        <?php
-                            echo $offreNbPlace[$i]['Nombre_Place_Min_Offre'];
+                <div class="tab pris">
+                    <img src="img/utilisateur.png" alt="image des utilisateurs" class="carteIcone">
+                    <p>
+                        nombre de place
+                    </p>
+                    <?php
+                            echo$offreDateFin[$i]['Date_Fin_Offre'];
                         ?>
-                    </span>
+                    
                 </div>
                 <!-- info de l'annonce -->
                 <div class="carteInfo">
@@ -146,7 +147,9 @@ foreach ($offreNbPlace as $element) {
 
                 <div class="carteBtn">
                     <button type="button">
+                        <a href="infoAnnonce.html">
                         Voir les détails de l'annonce
+                        </a>
                     </button>
                 </button>
                 </div>
