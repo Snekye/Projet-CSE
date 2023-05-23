@@ -79,11 +79,18 @@ h1 {
 }
 section button, .deleteform button {
     border: 3px solid #1B3168;
-    border-radius: 10% / 35%;
     background-color: white;
     padding: 1% 2%;
     margin: 1% 0 1% 0;
     font-size: 100%;
+}
+section button {
+    width: 60%;
+    border-radius: 7% / 30%;
+}
+.deleteform button {
+    width: 40%;
+    border-radius: 5% / 30%;
 }
 section button:hover, .deleteform button:hover {
     transition: .3s;
