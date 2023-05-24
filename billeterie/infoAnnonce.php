@@ -12,17 +12,22 @@ if (isset($_GET['Id_Offre'])) {
 }
 
 
-
+$offreIdImage = [];
 $offreImage = [];
 $offreNom = [];
 $partenaireNom = [];
 $offreTxt = [];
 $partenaireImage = [];
 
-$query = $connexion->prepare("SELECT Nom_Image FROM image JOIN offre_image ON image.Id_Image = offre_image.Id_Image JOIN offre ON offre_image.Id_Offre = offre.Id_Offre");
+$query = $connexion->prepare("SELECT offre_image.Id_Offre, image.Nom_Image 
+FROM image
+JOIN offre_image ON image.Id_Image = offre_image.Id_Image
+JOIN offre ON offre_image.Id_Offre = offre.Id_Offre
+ORDER BY offre_image.Id_Offre");
 $query->execute();
 
 $offreImage = $query->fetchAll();
+
 
 foreach ($offreImage as $element) {
 	$offreImage[] = $element['Nom_Image'];
@@ -94,6 +99,17 @@ foreach ($partenaireImage as $element) {
 	$partenaireImage[] = $element['Nom_Image'];
 };
 
+$query =$connexion->prepare("SELECT COUNT(Id_Image)
+FROM offre_image
+GROUP BY Id_Offre");
+$query->execute();
+
+$countOffre = $query->FetchAll();
+
+foreach($countOffre as $element){
+    $compte[] = $element['COUNT(Id_Image)'];
+};
+
 
 ?>
 
@@ -119,9 +135,18 @@ foreach ($partenaireImage as $element) {
             <div class="imgConteneurPartInfoBilletterie">
                 <!-- place les 4 image -->
                 <div class="imgPartInfoBilleterie">
-                
-                <img src="<?php echo $offreImage[$ind]['Nom_Image'] ?>" alt="image de l'anonce">
-                
+                <?php for ($i = 0; $i < $compte[$ind]; $i++){
+                    $query = $connexion->prepare("SELECT offre_image.Id_Offre, image.Nom_Image 
+                    FROM image
+                    JOIN offre_image ON image.Id_Image = offre_image.Id_Image
+                    JOIN offre ON offre_image.Id_Offre = offre.Id_Offre
+                    WHERE offre_image.Id_Offre = $ind +1");
+                    $query->execute();
+                    $selectionOffre = $query->fetchAll();
+                    //var_dump($d);
+                    ?>
+                <img src="<?php echo $selectionOffre[+$i]['Nom_Image'] ?>" alt="image de l'anonce">
+                <?php }  ?>
                 </div>
             </div>
             <div class="billetteriePartenaire">
