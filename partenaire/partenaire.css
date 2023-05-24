@@ -12,9 +12,10 @@
     padding: 0;
 }
 
-a{
+button{
+    border: none;
+    text-align: center;
     text-decoration: none;
-    color: blue;
 }
 
 
@@ -39,7 +40,8 @@ a{
 .partenaire{
     width: 15vw;
     height: 35vh;
-    min-height: 220px;
+    min-width: 180px;
+    min-height: 236px;      
     margin: 1% auto;
     border-radius: 5px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
@@ -58,10 +60,13 @@ a{
 
 .titrePartenaire{
     width: 90%;
-    height: 15%;
-    margin: 5% auto 0;
-    padding-top: 2%;
+    min-width: fit-content;
+    height: fit-content;
+    margin: 0 auto;
+    margin-top: 5%;
+    padding: 1px;
     border-radius: 2px;
+    outline: solid black;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
     cursor: pointer;
 }
@@ -77,13 +82,17 @@ a{
 }
 
 #fermerModalPartenaire{
-    margin-left: auto;
+    position: relative;
+    right: 25%;
+    border: 1px solid blue;
 }
-#fermerModalPartenaire p{
+.fermerModalPartenaire p{
     font-size: 25px;
     cursor: pointer;
+    position: relative;
+    left: 90%;
 }
-#fermerModalPartenaire p:hover{
+.fermerModalPartenaire p:hover{
     color: red;
 }
 
@@ -126,16 +135,13 @@ a{
     min-width: 16px;
 }
 
-.conteneurPaginationPartenaire{
-    border: 1px solid red;
-    width: 40%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%,50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-width: fit-content;  
+.descriptionPartenaire{
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+.descriptionPartenaire p{
+    font-size: 110%;
 }
 
 
@@ -155,13 +161,12 @@ a{
     }
 
     .partenaire{
-        min-width: fit-content;
+        min-width: 180px;
+        min-height: 236px;
+        margin: 5px;
     }
     .logoPartenaire{
         width: 200px;
-    }
-    .titrePartenaire{
-        margin-top: 30px;
     }
 
     .modalPartenaire{
