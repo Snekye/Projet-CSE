@@ -6,9 +6,9 @@ session_start();
 
 if (isset($_POST['login']) && isset($_POST['password'])) {
     $query = $connexion->prepare('
-        SELECT Nom_Utilisateur, Prenom_Utilisateur, Email_Utilisateur, Password_Utilisateur
-        FROM utilisateur
-        WHERE Email_Utilisateur = :login');
+        SELECT Nom_Utilisateur, Prenom_Utilisateur, Email_Utilisateur, Password_Utilisateur, Libelle_Droit, Id_Utilisateur
+        FROM utilisateur, droit
+        WHERE utilisateur.Id_Droit = droit.Id_Droit AND Email_Utilisateur = :login');
 
     $query->bindParam(':login', $_POST['login']);
     $query->execute();
@@ -23,7 +23,9 @@ if (isset($_POST['login']) && isset($_POST['password'])) {
             $data = [
                 'login' => $userFound['Email_Utilisateur'],
                 'nom' => $userFound['Nom_Utilisateur'],
-                'prenom' => $userFound['Prenom_Utilisateur']
+                'prenom' => $userFound['Prenom_Utilisateur'],
+                'droit' => $userFound['Libelle_Droit'],
+                'id' => $userFound['Id_Utilisateur']
             ];
 
             $_SESSION['utilisateur'] = $data;

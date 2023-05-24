@@ -86,6 +86,26 @@ if (empty($_POST) === False) {
             }
         }
     }
+    //Delete utilisateur
+    if (isset($_POST['delete_utilisateur'])) {
+        if (isset($_POST['delete_utilisateur']['id'])) {
+            $page = 4;
+            if ($_SESSION["utilisateur"]['id'] != $_POST['delete_utilisateur']['id']) {
+
+                try {
+                    $query = $connexion->prepare('DELETE FROM utilisateur WHERE Id_Utilisateur = :id');
+                    $query->bindParam(':id', $_POST['delete_utilisateur']['id']);
+                    $query->execute();
+                    $message = '<span style="color: green;">Utilisateur supprimé.</span>';
+                } catch (\Exception $exception) {
+                    var_dump($exception);
+                }
+            }
+            else {
+                $message = '<span style="color: red;">Refus : Impossible de vous supprimer vous-même.</span>';
+            }
+        }
+    }
 }
 
 //Récupération BDD
@@ -137,6 +157,15 @@ require ('..\require_popup.php');
     <form action="#" method="POST" name="delete">
         <button>Supprimer</button>
         <input type="hidden" name="delete_message[id]" value="" class="deletemessageinput">
+    </form>
+    <button onclick="deletecancel()">Ne pas supprimer</button>
+</div>
+
+<div class="deleteutilisateur deleteform">
+    <p>Êtes vous sûr(e) de vouloir supprimer cet utilisateur ?</p>
+    <form action="#" method="POST" name="delete">
+        <button>Supprimer</button>
+        <input type="hidden" name="delete_utilisateur[id]" value="" class="deleteutilisateurinput">
     </form>
     <button onclick="deletecancel()">Ne pas supprimer</button>
 </div>
@@ -361,9 +390,6 @@ require ('..\require_popup.php');
                 <td style='width: 40%;'><?=$element['Email_Utilisateur']?></td>
                 <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
                 <td style='width: 20%;'>
-                    <form action="#" method="POST" name="delete">
-                        <button>Modifier</button>
-                    </form>
                     <button onclick="deleteutilisateur(<?=$element['Id_Utilisateur'] ?>);">Supprimer</button>
                 </td>
                 <?php } ?>
