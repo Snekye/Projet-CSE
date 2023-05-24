@@ -218,53 +218,58 @@ require ('..\require_popup.php');
 
 <section class="partenaires affiche">
 
-<h1>Partenaires</h1>
-<table>
+    <h1>Partenaires</h1>
 
-    <thead>
-        <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Lien</th>
-            <th>Image</th>
-            <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
-            <th>Action</th>
+    <button onclick="window.location.href = 'ajouter_partenaire.php'" class="boutonajout">Ajouter un partenaire</button>
+
+    <table>
+
+        <thead>
+            <tr>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Lien</th>
+                <th>Image</th>
+                <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
+                <th>Action</th>
+                <?php } ?>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <?php 
+            
+            $table = "partenaire";
+            foreach ($liste_partenaires as $element) { ?>
+
+            <tr>
+                <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
+                <td style='width: 30%;'><?=$element['Description_Partenaire']?></td>
+                <td style='width: 15%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
+                <td style='width: 15%;'><img src="<?=$element['Nom_Image']?>"></td>
+                <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
+                <td style='width: 20%;'>
+                    <form action="#" method="POST" name="delete">
+                        <button>Modifier</button>
+                    </form>
+                    <button class="boutonsupprimer" onclick="deletepartenaire(<?=$element['Id_Partenaire'] ?>);">Supprimer</button>
+                </td>
+                <?php } ?>
+            </tr>
+            
             <?php } ?>
-        </tr>
-    </thead>
 
-    <tbody>
-
-        <?php 
-        
-        $table = "partenaire";
-        foreach ($liste_partenaires as $element) { ?>
-
-        <tr>
-            <td style='width: 10%;'><?=$element['Nom_Partenaire']?></td>
-            <td style='width: 30%;'><?=$element['Description_Partenaire']?></td>
-            <td style='width: 15%;'><a href="<?=$element['Lien_Partenaire']?>", target="_blank"><?=$element['Lien_Partenaire']?></a></td>
-            <td style='width: 15%;'><img src="<?=$element['Nom_Image']?>"></td>
-            <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
-            <td style='width: 20%;'>
-                <form action="#" method="POST" name="delete">
-                    <button>Modifier</button>
-                </form>
-                <button onclick="deletepartenaire(<?=$element['Id_Partenaire'] ?>);">Supprimer</button>
-            </td>
-            <?php } ?>
-        </tr>
-        
-        <?php } ?>
-
-    </tbody>
-</table>
+        </tbody>
+    </table>
 
 </section>
 
 <section class="offre affiche">
 
     <h1>Offres</h1>
+
+    <button onclick="window.location.href = 'ajouter_offre.php'" class="boutonajout">Ajouter une offre</button>
 
     <table>
 
@@ -300,7 +305,7 @@ require ('..\require_popup.php');
                     <form action="#" method="POST" name="delete">
                         <button>Modifier</button>
                     </form>
-                    <button onclick="deleteoffre(<?=$element['Id_Offre'] ?>);">Supprimer</button>
+                    <button class="boutonsupprimer" onclick="deleteoffre(<?=$element['Id_Offre'] ?>);">Supprimer</button>
                 </td>
                 <?php } ?>
             </tr>
@@ -349,7 +354,7 @@ require ('..\require_popup.php');
                 <td style='width: 7.5%;'><?=$element['Nom_Partenaire']?></td>
                 <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
                 <td style='width: 15%;'>
-                    <button onclick="deletemessage(<?=$element['Id_Message'] ?>);">Supprimer</button>
+                    <button class="boutonsupprimer" onclick="deletemessage(<?=$element['Id_Message'] ?>);">Supprimer</button>
                 </td>
                 <?php } ?>
             </tr>
@@ -390,7 +395,7 @@ require ('..\require_popup.php');
                 <td style='width: 40%;'><?=$element['Email_Utilisateur']?></td>
                 <?php if ($_SESSION["utilisateur"]['droit'] == 'Administrateur') { ?>
                 <td style='width: 20%;'>
-                    <button onclick="deleteutilisateur(<?=$element['Id_Utilisateur'] ?>);">Supprimer</button>
+                    <button class="boutonsupprimer" onclick="deleteutilisateur(<?=$element['Id_Utilisateur'] ?>);">Supprimer</button>
                 </td>
                 <?php } ?>
             </tr>

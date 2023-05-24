@@ -1,8 +1,10 @@
 <link rel="stylesheet" href="formulaire.css">
 <?php
-// !!! nouvelle requête pour insérer l'image dans la table image 
+//  nouvelle requête pour insérer l'image dans la table image 
 require 'require_connexion_bdd.php';
 
+//Deconnexion
+require("require_deconnexion.php");
 
 
 //$imagePartenaire = 39;

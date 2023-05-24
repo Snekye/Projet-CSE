@@ -3,6 +3,9 @@
 
 require 'require_connexion_bdd.php';
 
+//Deconnexion
+require("require_deconnexion.php");
+
 $partenaireOffre = [];
 
 //$query = $connexion->prepare("SELECT Nom_Partenaire FROM partenaire WHERE Id_Partenaire IN (SELECT Id_Partenaire FROM offre");
