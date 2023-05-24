@@ -1,0 +1,158 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+#infobilletterie  a{
+    list-style: none;
+    text-decoration: none;
+    font-size: 130%;
+    color: #000;
+    padding-left: 2%;
+}
+
+/* titre de la billetterie */
+.titreInfoBilletterie{
+    width: fit-content;
+    margin: 2% auto;
+}
+.titreInfoBilletterie p{
+    font-size: 250%;
+    padding-bottom: 5px;
+}
+
+/* partie 1 de la billetterie */
+.partInfoBilletterie1{
+    width: 100%;
+    height: 50vh;
+    min-height: 380px;
+    display: flex;
+}
+
+.imgConteneurPartInfoBilletterie{
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.imgPartInfoBilleterie{
+    width: 30%;
+    height: 30%;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    background-color: #D3D3D3;
+    min-width: 110px;
+    min-height: 50px;
+    margin: 0 auto;
+}
+.imgPartInfoBilleterie img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+}
+
+.billetteriePartenaire{
+    width: 25%;
+    min-width: min-content;
+    height: 90%;
+    margin: 1% auto 0;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+}
+
+.imgConteneurBilletteriePartenaire{
+    width: 75%;
+    height: 50%;
+    margin: 10% auto 0;
+    box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.imgConteneurBilletteriePartenaire img{
+    width: 100%;
+    height: 100%;
+    background-color: #D3D3D3;
+    object-fit: contain;
+    aspect-ratio: 3/2;
+    margin: 0 auto;
+}
+
+.titreBilletteriePartenaire{
+    margin: 5% auto 0;
+    text-align: center;
+    border-radius: 2px;
+    padding: 15px;
+    cursor: pointer;
+}
+.titreBilletteriePartenaire p{
+    font-size: 180%;
+    margin-bottom: 1%;
+}
+
+/* partie 2 de la billeterie */
+.descriptionInfoBilletterie{
+    list-style: none;
+    display: flex;
+    margin: 0 5%;
+}
+.descriptionInfoBilletterie li{
+    margin: 0 5%;
+    padding-top: 1%;
+    font-size: 165%;
+    text-align: center;
+}
+
+.paragrapheInfoBilleterie{
+    padding: 2% 0.5%;
+}
+.paragrapheInfoBilleterie p{
+    font-size: 150%;
+    text-align: justify;
+}
+
+a.retour :hover{
+    color: blue;
+}
+
+/* media */
+@media (max-width:336px) {
+    .partInfoBilletterie1{
+        display: flex;
+        flex-direction: column;
+        min-height: 400px;
+    } 
+}
+@media (max-width:472px) {
+    .imgConteneurPartInfoBilletterie{
+        width: 100%;
+        min-width: 225px;
+    }
+    .billetteriePartenaire{
+        width: 100%;
+        min-height: 90px;
+    }
+    .titreBilletteriePartenaire p{
+        font-size: 20px;
+        margin: 3% auto 0;
+    }
+    .descriptionInfoBilletterie li{
+        margin: 1% 5%;
+        padding-top: 1%;
+        font-size: 120%;
+    }
+    .paragrapheInfoBilleterie p{
+        font-size: 110%;
+    }
+
+}
+@media (max-width:957px) {
+    .descriptionInfoBilletterie{
+        flex-direction: column;
+        margin: 10% 0;
+        list-style:circle;
+    }
+}
