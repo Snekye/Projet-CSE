@@ -1,25 +1,86 @@
 <?php
-include("connexion_bdd.php");
-include("pagination.php");
+require ('require_connexion_bdd.php');
+// création des variable
+$partenaire= [];
+$partenaireImage=[];
+$partenaireNom=[];
+$partenaireLien=[];
 
-// responsive
-if($page>5){
-    echo("<style>
-        .conteneurPaginationPartenaire{
-        width: 40%;
-        position: absolute;
-        left: 50%;
-        transform: translate(-50%,-50%);
-    }
-    </style>");
+// requette pour récupérer les partenaire
+$query->$connexion->prepare("SELECT Id_Partenaire FROM partenaire ");
+$query-> execute();
+
+// attribution des valeurs dans le tableau partenaire Image
+$partenaire= $query->fetchAll();
+
+foreach($partenaire as $element){
+    $partenaire[] =$element['Id_Partenaire'];
 }
+
+// requette de jointure pour les images et les partenaires
+$query->$connexion->prepare("SELECT Nom_Image FROM image,partenaire WHERE image.Id_image=partenaire.Id_Image");
+$query->execute();
+
+// attribution des valeurs dans le tableau partenaire Image
+$partenaireImage= $query->fetchAll();
+
+foreach ($partenaireImage as $element){
+    $partenaireImage[] = $element['Nom_Image'];
+}
+
+// requette du nom du partenaire
+$query->$connexion->prepare("SELECT Nom_Partenaire FROM Partenaire");
+$query->execute();
+
+// attribution des valeurs dans le tableau partenaire Nom
+$partenaireNom= $query->fetchAll();
+
+foreach($partenaireNom as $element){
+    $partenaireNom[]= $element['Nom_Partenaire'];
+}
+
+// requette des liens du partenaire
+$query->$connexion->prepare("SELECT Lien_Partenaire FROM partenaire");
+$query->execute();
+
+// attribution des valeurs dans le tableau lien de partenaire
+$partenaireLien=$query-> fetchAll();
+
+foreach($partenaireLien as $element){
+    $partenaireLien[]= $element['Lien_Partenaire'];
+}
+
+// attribution des valeurs dans le tableau description de partenaire
+$partenaireDescription= $query->fetchAll();
+
+// Si mon formulaire de description a été soumi, alors je le traite
+if (isset($_POST['envoye'])) {
+    $formulaire = $_POST['envoye'];
+
+	    if (isset($formulaire['id'])) {
+		    try {
+			    $requete = $connexion->prepare('SELECT Description_Partenaire FROM partenaire WHERE partenaire_id = :id');
+			    $requete->bindParam(':id', $formulaire['id']);
+			    $requete->execute();
+
+			    // Redirection vers la page liste.php (on force le raffraichissement de la page)
+			    header('Location: ./back.php');
+		    } catch (\Exception $exception) {
+			    var_dump($exception);
+		}
+	}
+}
+
+//On attribut la description dans un variable
+$partenaireDescription=$requete;
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="partenaire.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>projet cse</title>
 </head>
@@ -27,9 +88,8 @@ if($page>5){
     <section id="page-Partenaire">
         <div class="textePartenaire">
             <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. 
-                Nihil debitis omnis sunt cum vel ipsam beatae cupiditate magni dolor blanditiis voluptate placeat neque vitae, 
-                repudiandae quam, enim esse culpa minima?Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odio, dignissimos alias aperiam nemo possimus repudiandae, a dolorem aliquam labore, earum aut. Commodi eum voluptas inventore ex minus amet! Necessitatibus, ex.
+                Bienvenue dans notre section consacrée a nos partenaire. C'est ici que vous pouvez découvrir nos nombreux colaborateur qui m'ètent à
+                vos disposition divers offre!
             </p>
         </div>
         <div class="modalPartenaire">
@@ -40,43 +100,41 @@ if($page>5){
             </div>
             <div class="partenaire">
                 <div class="logoPartenaire">
-                    <a href="#" >
-                        <img src="image/35-355558_vi-logo-instagram-format-png.png" alt="nom du partenaire">
-                    </a>
+                    <!-- lien vers le site du partenaire -->
+                    <a href="<?php echo $partenaireLien[$i]['Lien_Partenaire']?>" target="_blank">
+                    <img src="<?php echo $partenaireImage[$i]['Nom_Image'] ?>" alt="nom du partenaire">
                 </div>
                 <div class="titrePartenaire2">
-                    <h2>instagram</h2>
+                    <h2><?php echo $partenaireNom[$i] ['Nom_Partenaire']?></h2>
                 </div>
             </div>
             <div class="descriptionPartenaire">
                 <p>
-                    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem modi vitae aperiam at accusamus! Sint labore voluptate quae temporibus quia, aspernatur voluptatem expedita quibusdam saepe suscipit inventore ipsum quasi. A et sequi explicabo. Architecto assumenda obcaecati earum fuga officiis quaerat doloremque cumque eos minus, eius error eligendi perspiciatis sequi quo!
-                    tur adipisicing elit. Nemo quos explicabo pariatur delectus animi, consequuntur quam quisquam laboriosam nisi corrupti quod, obcaecati distinctio dicta dolore neque assumenda rem, odio sit?
+                    <? echo $partenaireDescription ?>
                 </p>
             </div>
         </div>
         <div class="contenaire">
-            <div class="partenaire">
-                <div class="logoPartenaire">
-                    <!-- lien vers le site du partenaire -->
-                    <a href="https://www.instagram.com" target="_blank">
-                        <img src="image/35-355558_vi-logo-instagram-format-png.png" alt="nom du partenaire">
-                    </a>
-                </div>
-                <div class="titrePartenaire" onclick="ouvrirModal()">
-                    <!-- ouverture de la modal -->
-                    <h2>instagram</h2>
-                </div>
-            </div>
-        </div>
-        <div class="nbPaginationPartenaire">
-                <div class="conteneurPaginationPartenaire">
-                    <div class="pagePartenaire">
-                        <p>
-                        <a href=""></a>&nbsp;
-                        <a></a>&nbsp;</p>
+        <?php
+            for ($i = 0; $i < count($partenaire); $i++){?>
+                <div class="partenaire">
+                    <div class="logoPartenaire">
+                        <!-- lien vers le site du partenaire -->
+                        <a href="<?php echo $partenaireLien[$i]['Lien_Partenaire']?>" target="_blank">
+                            <img src="<?php echo $partenaireImage[$i]['Nom_Image'] ?>" alt="nom du partenaire">
+                        </a>
                     </div>
+                    <form action="#" method="POST" name="envoye">
+                        <button class="titrePartenaire" onclick="ouvrirModal()">
+                            <!-- ouverture de la modal -->
+                            <input type="hidden" name="envoye[id]" value="<?= $element['Id_Partenaire'] ?>">
+                            <h2><?php echo $partenaireNom[$i] ['Nom_Partenaire']?></h2>
+                        </button>
+                    </form>
                 </div>
+            <?php
+            } 
+        ?>
         </div>
     </section>
     <script src="main.js"></script>
