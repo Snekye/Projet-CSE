@@ -7,11 +7,22 @@ $offreNom = [];
 $partenaireNom = [];
 $offreTxt = [];
 
-$query = $connexion->prepare("SELECT Nom_Image FROM image JOIN offre_image ON image.Id_Image = offre_image.Id_Image JOIN offre ON offre_image.Id_Offre = offre.Id_Offre ");
+$query = $connexion->prepare("SELECT Nom_Image FROM image JOIN offre_image ON image.Id_Image = offre_image.Id_Image JOIN offre ON offre_image.Id_Offre = offre.Id_Offre");
 $query->execute();
 
 $offreImage = $query->fetchAll();
-
+/*
+$test =[
+    foreach($offreImage as $element){
+        $a = $a+1;
+    $a=>[
+        $offreImage[] = $element['Nom_Image'];
+        
+    ],
+    };
+    
+];
+*/
 foreach ($offreImage as $element) {
 	$offreImage[] = $element['Nom_Image'];
 };
@@ -23,6 +34,10 @@ $offre = $query->fetchAll();
 
 foreach ($offre as $element) {
 	$offreNom[] = $element['Nom_Offre'];
+};
+
+foreach ($offre as $element) {
+    $offreId[] = $element['Id_Offre'];
 };
 
 
@@ -132,7 +147,7 @@ foreach ($offreNbPlace as $element) {
                         nombre de place
                     </p>
                     <?php
-                            echo$offreDateFin[$i]['Date_Fin_Offre'];
+                            echo$offreNbPlace[$i]['Nombre_Place_Min_Offre'];
                         ?>
                     
                 </div>
@@ -147,7 +162,15 @@ foreach ($offreNbPlace as $element) {
 
                 <div class="carteBtn">
                     <button type="button">
-                        <a href="infoAnnonce.html">
+                        <?php
+                            if ($offreId[$i] == 1){
+                                $idOffre = 0;
+                            }else{
+                                $idOffre = $offreId[$i -1]; 
+                            }
+                            $url = 'infoAnnonce.php?Id_Offre=' . $idOffre;
+                        ?>
+                        <a href="<?php echo $url; ?>">
                         Voir les détails de l'annonce
                         </a>
                     </button>
