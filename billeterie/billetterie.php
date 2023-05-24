@@ -7,7 +7,11 @@ $offreNom = [];
 $partenaireNom = [];
 $offreTxt = [];
 
-$query = $connexion->prepare("SELECT Nom_Image FROM image JOIN offre_image ON image.Id_Image = offre_image.Id_Image JOIN offre ON offre_image.Id_Offre = offre.Id_Offre");
+$query = $connexion->prepare("SELECT offre_image.Id_Offre, image.Nom_Image 
+FROM image
+JOIN offre_image ON image.Id_Image = offre_image.Id_Image
+JOIN offre ON offre_image.Id_Offre = offre.Id_Offre
+GROUP BY offre_image.Id_Offre");
 $query->execute();
 
 $offreImage = $query->fetchAll();
@@ -84,6 +88,17 @@ $offreNbPlace = $query->fetchAll();
 
 foreach ($offreNbPlace as $element) {
 	$offreNbPlace[] = $element['Nombre_Place_Min_Offre'];
+};
+
+$query =$connexion->prepare("SELECT COUNT(Id_Image)
+FROM offre_image
+GROUP BY Id_Offre");
+$query->execute();
+
+$countOffre = $query->FetchAll();
+
+foreach($countOffre as $element){
+    $compte[] = $element['COUNT(Id_Image)'];
 };
 
 ?>
