@@ -1,10 +1,11 @@
 <link rel="stylesheet" href="formulaire.css">
 <?php
-//  nouvelle requête pour insérer l'image dans la table image 
+
+// !!! nouvelle requête pour insérer l'image dans la table image 
 require 'require_connexion_bdd.php';
 
-//Deconnexion
 require("require_deconnexion.php");
+
 
 
 //$imagePartenaire = 39;
@@ -73,7 +74,7 @@ if (empty($_POST) === false) {
 
 
 		}catch (\Exception $exception) {
-			echo 'Erreur lors de l\'ajout de l\'image';
+			$message = 'Erreur lors de l\'ajout de l\'image';
 			$erreurs['Lien_Image'] = 'erreur';
 	}
 }
@@ -89,14 +90,16 @@ if (empty($_POST) === false) {
 
             $requeteInsertion->execute();
 			
-            echo 'Votre demande a bien été prise en compte.';
+            $message = 'Votre demande a bien été prise en compte.';
         } catch (\Exception $exception) {
-            echo 'Erreur lors de l\'ajout du partenaire';
+            $message = 'Erreur lors de l\'ajout du partenaire';
 			$erreurs['Nom_Image'] = 'erreur';
         }
     }
 	
+	
 }
+require 'require_popup.php';
 
 ?>
 <div class= "container">
