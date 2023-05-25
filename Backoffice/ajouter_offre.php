@@ -3,12 +3,10 @@
 
 require 'require_connexion_bdd.php';
 
-//Deconnexion
 require("require_deconnexion.php");
 
 $partenaireOffre = [];
 
-//$query = $connexion->prepare("SELECT Nom_Partenaire FROM partenaire WHERE Id_Partenaire IN (SELECT Id_Partenaire FROM offre");
 $query = $connexion->prepare("SELECT Nom_Partenaire,Id_Partenaire FROM partenaire ");
 $query->execute();
 
@@ -29,11 +27,15 @@ if (empty($_POST) === false) {
 	
 	$expressionReguliere = '/[\d\'\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/';
 
-	if (empty($_POST['nomOffre']) === false) {
+	if (empty($_POST['nomOffre'])) {
+		$erreurs['nomOffre'] = 'Veuillez saisir le nom de l\'offre.';
+	} else {
+			if (empty($_POST['nomOffre']) === false) {
 		if (preg_match($expressionReguliere, $_POST['nomOffre'])) {
 			$erreurs['nomOffre'] = "Le nom de l'offre ne doit pas contenir de chiffres et de caractères spéciaux.";
 		}
 	}
+}
 
     if (empty($_POST['descriptionOffre'])) {
 		$erreurs['descriptionOffre'] = 'Veuillez saisir une description.';
@@ -67,9 +69,14 @@ if (empty($_POST) === false) {
 		}
 	}
 
-//	if (isset($sujets[$_POST['partenaireOffre']]) === false) {
-//		$erreurs['partenaireOffre'] = 'Veuillez préciser un partenaire valide.';
-//	}
+	if (empty($_POST['nomImage1'])){
+		$erreurs['nomImage1'] = 'Veuillez saisir le lien d\'une image';
+	}else {
+		if(filter_var($_POST['nomImage1'], FILTER_VALIDATE_URL) === false){
+			$erreurs['nomImage1'] = 'Veuillez saisir un lien d\'image valide';
+		}
+
+	}
 
     if (empty($erreurs)) {
         try {
@@ -83,14 +90,53 @@ if (empty($_POST) === false) {
 
             $requeteInsertion->execute();
 
-            echo 'Votre demande a bien été prise en compte.';
+            
         } catch (\Exception $exception) {
-            echo 'Erreur lors de l\'ajout de l\'offre';
+            $message = 'Erreur lors de l\'ajout de l\'offre';
             // Debug de l'erreur :
             // var_dump($exception->getMessage());
-        }
-    }
+        };
+
+		try {
+			$requeteInsertionImage = $connexion->prepare('INSERT INTO image (Nom_Image) VALUES (:Nom_Image)');
+			$requeteInsertionImage->bindParam(':Nom_Image', $_POST['nomImage1'] );
+			
+		
+			$requeteInsertionImage->execute();
+			
+		} catch (\Exception $exception) {
+            $message = 'Erreur lors de l\'ajout de l\'offre';
+            // Debug de l'erreur :
+            // var_dump($exception->getMessage());
+    };
+
+	try {
+		$query =$connexion->prepare("SELECT MAX(Id_Image) FROM image");
+		$query->execute();
+
+		$a= $query->fetchColumn();
+
+		$query =$connexion->prepare("SELECT MAX(Id_Offre) FROM offre");
+		$query->execute();
+
+		$b= $query->fetchColumn();
+
+		$requeteInsertionOffreImage =$connexion->prepare('INSERT INTO offre_image (Id_Offre, Id_Image) VALUES (:Id_Offre, :Id_Image )');
+		$requeteInsertionOffreImage->bindParam(':Id_Offre', $b);
+		$requeteInsertionOffreImage->bindParam(':Id_Image', $a);
+		
+		$requeteInsertionOffreImage->execute();
+		$message = 'Votre demande a bien été prise en compte.';
+	}catch (\Exception $exception) {
+		$message = 'Erreur lors de l\'ajout offre_image';
+		// Debug de l'erreur :
+		// var_dump($exception->getMessage());
+
+};
 }
+}
+
+require 'require_popup.php';
 
 ?>
 <div class= "container">
@@ -110,13 +156,13 @@ if (empty($_POST) === false) {
 		</div>
 
         <div>
-			<label for="dateDebutOffre">Date de début de l'offre</label>
+			<label for="dateDebutOffre">Date de début de l'offre A-M-J</label>
 			<?= isset($erreurs['dateDebutOffre']) ? $erreurs['dateDebutOffre'] : null; ?>
 			<input type="dateDebutOffre" name="dateDebutOffre" value="<?= isset($_POST['dateDebutOffre']) ? $_POST['dateDebutOffre'] : null; ?>">
 		</div>
 
         <div>
-			<label for="dateFinOffre">Date de fin de l'offre</label>
+			<label for="dateFinOffre">Date de fin de l'offre A-M-J</label>
 			<?= isset($erreurs['dateFinOffre']) ? $erreurs['dateFinOffre'] : null; ?>
 			<input type="dateFinOffre" name="dateFinOffre" value="<?= isset($_POST['dateFinOffre']) ? $_POST['dateFinOffre'] : null; ?>">
 		</div>
@@ -140,7 +186,7 @@ if (empty($_POST) === false) {
 		<div>
 			<label for="nomImage1">Image 1</label>
 			<?= isset($erreurs['nomImage1']) ? $erreurs['nomImage1'] : null; ?>
-			<input type="nomImage" name="nomImage" value="<?= isset($_POST['nomImage1']) ? $_POST['nomImage1'] : null; ?>">
+			<input type="nomImage1" name="nomImage1" value="<?= isset($_POST['nomImage1']) ? $_POST['nomImage1'] : null; ?>">
 		</div>
 
 		<div>
@@ -162,7 +208,7 @@ if (empty($_POST) === false) {
 		</div>
 
 		<div>
-			<input type="submit" name="validation">
+			<input type="submit" name="validation" class="send-button">
 		</div>
 	</form>
 </div>
