@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 22 mai 2023 à 15:37
+-- Généré le : jeu. 25 mai 2023 à 09:10
 -- Version du serveur : 10.4.27-MariaDB
 -- Version de PHP : 8.2.0
 
@@ -37,7 +37,8 @@ CREATE TABLE `droit` (
 --
 
 INSERT INTO `droit` (`Id_Droit`, `Libelle_Droit`) VALUES
-(1, 'Administrateur');
+(1, 'Administrateur'),
+(2, 'Lecteur');
 
 -- --------------------------------------------------------
 
@@ -57,7 +58,12 @@ CREATE TABLE `image` (
 INSERT INTO `image` (`Id_Image`, `Nom_Image`) VALUES
 (1, 'https://www.1min30.com/wp-content/uploads/2017/08/Chanel-logo-1.jpg'),
 (2, 'https://upload.wikimedia.org/wikipedia/fr/thumb/9/9d/Peugeot_2021_Logo.svg/750px-Peugeot_2021_Logo.svg.png?20210226094449'),
-(3, 'https://cdn2.telephone.city/webp/200/pathe.png');
+(3, 'https://cdn2.telephone.city/webp/200/pathe.png'),
+(4, 'https://media.glassdoor.com/sqll/3044503/novus-tech-solutions-squarelogo-1640152769133.png'),
+(5, 'https://thumbs.dreamstime.com/b/concept-vert-sant%C3%A9-logo-%C3%A9co-vie-personnes-soins-mod%C3%A8le-vecteur-de-physioth%C3%A9rapie-en-fond-blanc-221778646.jpg'),
+(6, 'https://play-lh.googleusercontent.com/fAkR-TQVwep39nqSAaRJCNCRFaqAckN7zTx6F1z6cOXY-4zfoOKxJN7CJH8Q89A61Q'),
+(7, 'https://media.licdn.com/dms/image/C560BAQG0jEgThu4lMQ/company-logo_200_200/0/1519297908797?e=2147483647&v=beta&t=anuO2m_ZAsBIlpseCPsNzc_Gt8IDI-dHSwoDYiRLLi8'),
+(8, 'https://pbs.twimg.com/profile_images/1604929444342206464/-YIYswDZ_400x400.jpg');
 
 -- --------------------------------------------------------
 
@@ -131,10 +137,7 @@ CREATE TABLE `offre` (
 INSERT INTO `offre` (`Id_Offre`, `Nom_Offre`, `Description_Offre`, `Date_Debut_Offre`, `Date_Fin_Offre`, `Nombre_Place_Min_Offre`, `Id_Partenaire`) VALUES
 (1, 'Promo Voyage Ensoleillé', 'Profitez de notre promotion voyage ensoleillé et économisez sur vos prochaines vacances. Des destinations de rêve à des prix imbattables. Ne manquez pas cette occasion de vous évader !', '2023-03-15', '2024-03-03', 20, 3),
 (2, 'Offre Tech Futuriste', 'Plongez dans le futur avec notre offre tech futuriste. Des réductions incroyables sur les dernières innovations technologiques. Soyez à la pointe de la technologie sans vous ruiner !', '2022-11-17', '2023-01-18', 150, 8),
-(4, 'Promo Gourmande', 'Laissez-vous tenter par notre promo gourmande avec des remises alléchantes sur une sélection de produits gastronomiques. Un festin pour vos papilles à prix réduit.', '2023-02-06', '2023-05-10', 2, 3),
-(6, 'Super Soldes Extrêmes', 'Profitez de prix exceptionnels sur une large gamme de produits !', '2023-03-05', '2023-03-22', 1, 7),
-(7, 'Super soldes', 'Des remises allant jusqu\'à 70% sur une large gamme d\'articles. Préparez-vous à faire de bonnes affaires incroyables !', '2023-03-09', NULL, 20, 2),
-(8, 'Promo Bien-être Relaxant', 'Accordez-vous une pause détente avec notre promo bien-être relaxant. Des offres spéciales sur les soins du corps, les massages et les produits de relaxation. Offrez-vous un moment de pure sérénité à prix réduit.', '2023-03-09', '2023-03-01', 20, 2);
+(4, 'Promo Gourmande', 'Laissez-vous tenter par notre promo gourmande avec des remises alléchantes sur une sélection de produits gastronomiques. Un festin pour vos papilles à prix réduit.', '2023-02-06', '2023-05-10', 2, 3);
 
 -- --------------------------------------------------------
 
@@ -146,6 +149,15 @@ CREATE TABLE `offre_image` (
   `Id_Offre` int(11) NOT NULL,
   `Id_Image` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `offre_image`
+--
+
+INSERT INTO `offre_image` (`Id_Offre`, `Id_Image`) VALUES
+(1, 1),
+(2, 2),
+(4, 4);
 
 -- --------------------------------------------------------
 
@@ -166,12 +178,12 @@ CREATE TABLE `partenaire` (
 --
 
 INSERT INTO `partenaire` (`Id_Partenaire`, `Nom_Partenaire`, `Description_Partenaire`, `Lien_Partenaire`, `Id_Image`) VALUES
-(1, 'NovusTech Solutions', 'Innovating the Future, Today!', 'https://www.chanel.com/fr/parfums/', 1),
-(2, 'ÉcoVie Santé', 'Votre bien-être, notre priorité écologique.', 'https://www.pathe.fr/', 3),
-(3, 'ProFit Gym', 'Unlock Your Potential, Embrace the Power Within!', 'https://www.peugeot.fr/', 2),
-(5, 'AstraSoft Technologies', 'Shaping a Stellar Digital Universe.', 'https://www.parcasterix.fr/', 3),
-(7, 'DreamWorks Events', 'Turning Dreams into Unforgettable Moments.', 'https://www.renault.fr/', 1),
-(8, 'Artisanal Bliss Interiors', 'Bringing Harmony and Beauty into Every Space.', 'https://www.asus.com/', 2);
+(1, 'NovusTech Solutions', 'Innovating the Future, Today!', 'https://novustechsolutions.com/', 4),
+(2, 'ÉcoVie Santé', 'Votre bien-être, notre priorité écologique.', 'https://www.ecovie.ch/', 5),
+(3, 'ProFit Gym', 'Unlock Your Potential, Embrace the Power Within!', 'https://profitgym.nl/', 6),
+(5, 'AstraSoft Technologies', 'AstraSoft Technologies!', 'http://astrasoft.me/', 7),
+(7, 'DreamWorks Events', 'Turning Dreams into Unforgettable Moments.', 'https://www.dreamworks.com/events', 8),
+(8, 'Artisanal Bliss Interiors', 'Bringing Harmony and Beauty into Every Space.', 'https://blisshomeanddesign.com/', 2);
 
 -- --------------------------------------------------------
 
@@ -194,7 +206,7 @@ CREATE TABLE `utilisateur` (
 
 INSERT INTO `utilisateur` (`Id_Utilisateur`, `Nom_Utilisateur`, `Prenom_Utilisateur`, `Email_Utilisateur`, `Password_Utilisateur`, `Id_Droit`) VALUES
 (1, 'Admin', 'Admin', 'admin', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1),
-(2, 'Noël', 'Marie', 'marie.noël@lyceestvincent.fr', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 1);
+(2, 'Noël', 'Marie', 'marie.noël@lyceestvincent.fr', '$argon2i$v=19$m=16,t=2,p=1$UTFzQzNEeWpSaHF3eENkUA$Xhq3DRx3Da83rdWtlZs//g', 2);
 
 --
 -- Index pour les tables déchargées
@@ -263,13 +275,13 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `droit`
 --
 ALTER TABLE `droit`
-  MODIFY `Id_Droit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id_Droit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `image`
 --
 ALTER TABLE `image`
-  MODIFY `Id_Image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `Id_Image` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `info_accueil`
@@ -299,7 +311,7 @@ ALTER TABLE `partenaire`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `Id_Utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Contraintes pour les tables déchargées
