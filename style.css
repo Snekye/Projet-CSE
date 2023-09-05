@@ -1,0 +1,647 @@
+/*========================GOOGLE POLICE ECRITURE=================  =======*/
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:400|Inter:700');
+
+
+*, ::before, ::after{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+    box-sizing: border-box;
+}
+
+
+
+
+body{
+    font-family: Montserrat;
+    font-family: Inter;
+    width: 100%;
+    
+}
+
+/*========================HEADER========================*/
+header{
+    z-index: 1;
+}
+
+
+
+.marge{
+    padding-top: 50px;
+    background-color: #efedee;
+    position: relative;
+    
+}
+
+
+
+
+/*========================NAV========================*/
+
+
+
+
+.navbar{
+    height: 4rem;
+    background: #2e3b64;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 6rem;
+}
+
+
+
+.nav-list{
+    position: relative;
+    overflow: hidden;
+    margin-right: 12vw;
+}
+
+.nav_item{
+    display: inline-flex;
+    flex-direction: row;
+    margin-right: 2vh;
+    justify-content: space-evenly;
+}
+
+
+nav ul li a{
+    color: white;
+    list-style-type: none;
+    display: block;
+    overflow: hidden;
+    float: left;
+    font-size: 3vh;
+    text-align: center;
+    padding: 3vh 4vh;
+    text-decoration: none;
+}
+
+.nav_item:hover{
+    background: #b6a786;
+    transition: .5s;
+}
+
+.logo{
+    object-fit: contain;
+    left: 0;
+    position: relative;
+}
+
+.nav_logo{
+    display: block;
+    position: relative;
+    top: 0;
+    height: 16.7vh;
+    width: 15rem;
+    background-color: white;
+    margin-top: -7vh;
+    z-index: 2;
+
+    
+    
+    
+}
+
+/*========================Menu Burger============================*/
+
+.nav-toggler{
+    position: fixed;
+    z-index: 10;
+    top: 57px;
+    right: 30px;
+    height: 50px;
+    width: 50px;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+}
+
+.line {
+    position: absolute;
+    display: block;
+    width: 2rem;
+    height: 2px;
+    background: #f1F1F1F1;
+    transition: all 0.3s ease-out;
+}
+
+.l1 {
+    transform: translateY(-10px);
+}
+
+.l3{
+    transform: translateY(10px);
+}
+
+.nav-toggler.active .l1{
+    transform: translateY(0px); 
+    transform: rotate(135deg);
+}
+
+.nav-toggler.active .l2{
+    opacity: 0;
+}
+
+.nav-toggler.active .l3{
+    transform: translateY(0px);
+    transform: rotate(-135deg);
+}
+
+/*========================Dark/Light theme button========================*/
+.nav_btn{
+    display: flex;
+    align-items: center;
+}
+
+
+
+.change-theme{
+    font-size: 1.25rem;
+    color: white;
+    cursor: pointer;
+}
+
+.change-theme:hover{
+    color:#B6A886;
+}
+
+/*========================SIDE BAR========================*/
+
+
+.sidebar{
+    margin-left: 13vw;
+    width: auto;
+    display: flex;
+    overflow: hidden;
+}
+
+.menu{
+    width: 20vw;
+    background-color: white;
+}
+
+/*========================SONDAGE========================*/
+
+
+.info_poll{
+    width: auto;
+    padding-top: 2rem;
+}
+
+.poll_titre{
+    background-color: #1B3168;
+    color: white;
+    text-align: center;
+    height: 2rem;
+    font-weight: 300;
+}
+
+.poll_container{
+    background-color: #efedee;
+    padding-left: 1rem;
+}
+
+.poll_question{
+    padding-top: 0.5rem;
+    text-align: center;
+    font-size: medium;
+    font-weight: 500;
+}
+
+.poll_choix{
+    padding-top: 1rem;
+}
+
+
+.menu_titre_accueil{
+    color: #b6a786;
+    font-size: 2rem;
+    position: relative;
+    line-height: normal;
+    display: inline-block;
+
+    
+}
+
+.menu_titre{
+    color: #b6a786;
+    font-size: 1.5rem;
+    position: relative;
+    line-height: normal;
+    margin-top: 3vh;
+    
+}
+
+.info{
+    margin-top: 5vh;
+}
+
+.info_accueil{
+    margin: 0;
+    
+}
+
+.info_acces_rapide{
+    margin: 0;
+    position: relative;
+
+}
+
+.info_acces_rapide_premier{
+    margin-top: 3vh;
+    display: block;
+
+}
+
+.info_acces_rapide_second{
+    display: inline-block;
+    margin-top: 0.5vh;
+}
+
+.info_lien{
+    color: #0099FF;
+    margin-bottom: 5px;
+}
+
+.info_lien:hover{
+    color: cyan;
+}
+
+.info_texte{
+    display: inline-block;
+    position: relative;
+    color: black;
+}
+
+.adresse{
+    display: block;
+    position: relative;
+    color: #0099FF;
+}
+
+.adresse:hover{
+    color: cyan;
+}
+
+
+/*========================Caroussel partenaire========================*/
+
+
+.info_logo{
+    width: 1rem;
+}
+
+
+
+.slider-1 .slider{
+    display: flex;
+    animation: slider-1 15s infinite ease-in-out;
+    max-width: 14vw;
+}
+
+.slider-1 img{
+    width: 14vw;
+}
+.slider-1{
+    width: 14vw;
+    text-align: center;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.info_partenaire{
+    color: black;
+    text-decoration: underline;
+}
+
+@keyframes slider-1{
+    0%,20%{
+        transform:translatex(0)
+    }
+    25%,45%{
+        transform: translateX(-100%);
+    }
+    50%,70%{
+        transform: translateX(-200%);
+    }
+    75%,95%{
+        transform: translateX(-300%);
+    }
+    100%{
+        transform: translateX(-400%);
+    }
+    
+}
+
+/*========================Accueil========================*/
+
+.home{
+    margin: 1em 2em;
+    width: 50%;
+    margin-left: 35%;
+    margin-top: -47rem;
+    z-index: 3;
+}
+
+
+.presentation {
+    right: 0;
+    padding   : 1em 1em;
+    position  : relative;
+    background-color: #D9D9D9;
+    border-radius: 0.5rem;
+}
+
+
+.sous_titre{
+
+    color: #2e3b64;
+}
+
+
+
+.affiche_offre{
+    padding-top: 3%;
+    font: Montserrat;
+    font-weight: 400;
+    size: 30px;
+    line-height: 36.57px;
+    font-size: xx-large;
+    z-index: 3;
+}
+
+.annonce{
+    right: 0;
+    padding   : 1em 1em;
+    position  : relative;
+    border-radius: 0.5rem;
+    margin-top: 3%;
+    background-color: #efedee;
+}
+
+.contenu_annonce{
+    position: inherit;
+    display: inline-flex;
+    align-items: center;
+    flex-direction: row;
+    margin-right: 2vh;
+    width: 100%;
+}
+
+.bouton_accueil{
+    text-align: center;
+    width: 10vw;
+    color: white;
+    background: #1B3168;
+    border-radius: 7px;
+    font-size: 1.3rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.bouton_offre{
+    margin-top: 3vh;
+    color: white;
+    background: #1B3168;
+    border-radius: 7px;
+    display: block;
+    width: 15rem;
+    padding: 1rem;
+
+
+}
+
+
+
+.info_offre{
+    color: white;
+    background: #1B3168;
+}
+
+.offre_icon{
+    color: white;
+}
+
+.texte_presentation_debut{
+    display: block;
+    flex-direction: row;
+    margin-left:1rem;
+    font-size: 1.3rem;
+
+}
+
+.texte_presentation_fin{
+    font-size: 1.3rem;
+
+}
+
+.texte_accueil{
+    padding-top: 3%;
+    font-size: 1.2rem;
+}
+
+/*========================FOOTER========================*/
+
+.navbottom{
+    background-color: #B6A886;
+    padding-top: 2%;
+    padding-bottom: 1%;
+    margin-top: 3vh;
+}
+
+.navbottom .Pfooter{
+    display: flex;
+    color: aliceblue;
+    margin-left: 9vh;
+} 
+.navbottom .imgST img{
+    margin-top: 1%;;
+} 
+
+.navbottom img{
+    width: 14vw;
+}
+
+.boxfooter{
+    position: relative;
+    justify-content: center;
+    margin-left: 1rem;
+}
+
+.navbottom .linkfooter {
+    margin-top: 1vh;
+    text-decoration: none;
+    width: 50vw;
+}
+
+.CSE{
+    font-size: 3vh;
+    font-weight: 600;
+}
+
+
+.navbottom .linkfooter a {
+    padding-right: 2%;
+    color: aliceblue;
+    text-decoration: none;
+}
+
+
+.footer_link{
+    color: #fff;
+    margin-top: 6vh;
+}
+
+
+
+/*========================RESPONSIVE========================*/
+
+
+
+@media screen and (max-width: 375px) {
+    .sidebar{
+        display: none;
+    }
+
+    .container{
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .nav_logo{
+        margin-right: 20vw;
+    }
+
+
+    
+}
+
+/*========================MEDIUM========================*/
+@media screen and (max-width: 568px) {
+    .sidebar{
+        display:none
+    }
+
+    
+
+
+   
+
+    .home{
+        margin-left: 0;
+        margin-top: 10vh;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .bouton_accueil{
+        width: 22vw;
+    }
+
+    .affiche_offre {
+        padding-top: 20%;
+    }
+
+
+    .container{
+        margin-top: 4vh;
+    }
+
+
+    .nav_icon{
+        margin-right: 20vw;
+    }
+
+    .nav_icon{
+        color: white;
+        display: flex;
+
+    }
+
+    .nav_btn{
+        position: relative;
+        margin-left: 20%;
+        font-size: 2rem;
+    }
+    
+}
+
+
+
+/*========================LARGE========================*/
+@media screen and (max-width: 1100px) {
+    .sidebar{
+        display: none;
+    }
+
+    
+
+    .nav-list{
+        position: fixed;
+        width: 160vw;
+        min-height: 50vh;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        background: #1B3168;
+        border-bottom: 1px solid rgb(207, 207, 207);
+        transform: translateY(-125%);
+        transition: 5s;
+        transition: cubic-bezier(0.73, 0.11, 0.67, 0.84);
+        z-index: 10;
+    }
+
+    .nav-list.active{
+        transform: translate(0);
+    }
+
+    .nav_item{
+        display: inline-flex;
+        flex-direction: row;
+        margin-left: 20vw;
+        justify-content: space-evenly;
+    }
+
+    .nav-list a{
+        font-family: Montserrat, sans-serif;
+        color: #f1F1F1F1;
+        font-size: 20px;
+        display: block;
+        margin: 12px 0;
+        text-decoration: none;
+        align-items: centers;
+    }
+    
+    .home{
+        margin-left: 0;
+        margin-top: 10vh;
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+
+   
+
+
+    .container{
+        margin-top: 3rem;
+    }
+    
+}
+
+@media screen and (min-width: 1101px) {
+    .nav-toggler{
+        display: none;
+    }
+
+}
